@@ -3,12 +3,12 @@ from watson_developer_cloud import NaturalLanguageClassifierV1
 
 #setup nlc
 natural_language_classifier = NaturalLanguageClassifierV1(
-    username='YOUR SERVICE USERNAME',
-    password='YOUR SERVICE PASSWORD')
+    username='d977a91e-8653-4432-ad9a-cb92f0a1c5aa',
+    password='EGtyKkWV6Dsg')
 
 #setup simulation json
-situation = json.loads("jsonTest.json")
-
+json_data=open("jsonTest.json").read()
+situation = json.loads(json_data)
  
 #classifiers = natural_language_classifier.list()        
 #print(json.dumps(classifiers, indent=2))   
@@ -19,12 +19,12 @@ situation = json.loads("jsonTest.json")
 # training_data=training_data, name='weather'), indent=2))
  
 # replace 2374f9x68-nlc-2697 with your classifier id
-status = natural_language_classifier.status('2374f9x68-nlc-2697')
+#status = natural_language_classifier.status('2374f9x68-nlc-2697')
 #print(json.dumps(status, indent=2))
 
-if status['status'] == 'Available':
-    simState = simState(situation)
-    simStart()
+#if status['status'] == 'Available':
+    #simState = simState(situation)
+    #simStart()
     
 def simStart():
 
@@ -65,8 +65,8 @@ class simState:
 
     def __init__(self, json):
         self.currentState = json["exampleSimStates"]["simStates"]["exSimState1"]
-        self.voiceText = json["exampleSimStates"]["exSimState1"]["stateText"]
-        self.isEndState = json["exampleSimStates"]["exSimState1"]["isEndState"]
+        self.voiceText = json["exampleSimStates"]["simStates"]["exSimState1"]["stateText"]
+        self.isEndState = json["exampleSimStates"]["simStates"]["exSimState1"]["isEndState"]
         self.modifier1 = 0
         self.modifier2 = 0
         self.modifier3 = 0
@@ -85,9 +85,13 @@ class simState:
         self.modifier2 = json["exampleSimStates"]["simStates"][self.currentState]["relationships"][cateResponse]["modiferValues"][5]
         
         self.currentState = json["exampleSimStates"]["simStates"][nextState]
-        self.voiceText = json["exampleSimStates"][nextState]["stateText"]
+        self.voiceText = json["exampleSimStates"]["simStates"][nextState]["stateText"]
 
     
+    
+if True:#status['status'] == 'Available':
+    simState = simState(situation)
+    simStart()
 
         
 

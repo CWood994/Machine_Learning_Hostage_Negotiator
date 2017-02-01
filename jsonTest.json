@@ -1,93 +1,84 @@
-{"exampleSimStates": {
-	"simStates": {
-		"exSimState1": {
-			"stateText": "this is where the state text goes, the bad guy says this",
-			"isEndState": false,
-			"relationships": {
-				"angryCate": {
-					"gotoState":"exSimState2",
-					"modifierValues": {
-						1 : 0,
-						2 : 0,
-						3 : 0,
-						4 : 0,
-						5 : 0	
+{
+	"exampleSimStates": {
+		"simStates": {
+			"exSimState1": {
+				"stateText": "this is where the state text goes, the bad guy says this",
+				"isEndState": false,
+				"relationships": {
+					"angryCate": {
+						"gotoState": "exSimState2",
+						"modifierValues": {
+							"stat1": 0,
+							"stat2": 0,
+							"stat3": 0,
+							"stat4": 0,
+							"stat5": 0
+						}
+					},
+					"calmCate": {
+						"gotoState": "exSimState3",
+						"modifierValues": {
+							"stat1": 0,
+							"stat2": 0,
+							"stat3": 2,
+							"stat4": 0,
+							"stat5": 0
+						}
 					}
 				}
-				"calmCate": {
-					"gotoState":"exSimState3",
-					"modifierValues": {
-						1 : 0,
-						2 : 0,
-						3 : 2,
-						4 : 0,
-						5 : 0	
-					}
-				}	
-
-			}
-
-		},
-		"exSimState2": {
-			"stateText": "this is where the state text goes, the bad guy says this too",
-			"isEndState": false,
-			"relationships": {
-				"angryCate": {
-					"gotoState":"exSimState2",
-					"modifierValues": {
-						1 : 0,
-						2 : 0,
-						3 : 0,
-						4 : 0,
-						5 : 0	
+			},
+			"exSimState2": {
+				"stateText": "this is where the state text goes, the bad guy says this too",
+				"isEndState": false,
+				"relationships": {
+					"angryCate": {
+						"gotoState": "exSimState2",
+						"modifierValues": {
+							"stat1": 0,
+							"stat2": 0,
+							"stat3": 0,
+							"stat4": 0,
+							"stat5": 0
+						}
+					},
+					"calmCate": {
+						"gotoState": "exSimState3",
+						"modifierValues": {
+							"stat1": 0,
+							"stat2": 0,
+							"stat3": 0,
+							"stat4": 0,
+							"stat5": 0
+						}
 					}
 				}
-				"calmCate": {
-					"gotoState":"exSimState3",
-					"modifierValues": {
-						1 : 0,
-						2 : 0,
-						3 : 2,
-						4 : 0,
-						5 : 0	
-					}
-				}	
-
-			}
-
-		},
-		"exSimState3": {
-			"stateText": "this is where the state text goes, the bad guy says this 3",
-			"isEndState": true,
-			"relationships": {
-				"angryCate": {
-					"gotoState":"exSimState3",
-					"modifierValues": {
-						1 : 0,
-						2 : 0,
-						3 : 0,
-						4 : 0,
-						5 : 0	
+			},
+			"exSimState3": {
+				"stateText": "this is where the state text goes, the bad guy says this 3",
+				"isEndState": true,
+				"relationships": {
+					"angryCate": {
+						"gotoState": "exSimState3",
+						"modifierValues": {
+							"stat1": 0,
+							"stat2": 0,
+							"stat3": 0,
+							"stat4": 0,
+							"stat5": 0
+						}
+					},
+					"calmCate": {
+						"gotoState": "exSimState3",
+						"modifierValues": {
+							"stat1": 0,
+							"stat2": 0,
+							"stat3": 0,
+							"stat4": 0,
+							"stat5": 0
+						}
 					}
 				}
-				"calmCate": {
-					"gotoState":"exSimState3",
-					"modifierValues": {
-						1 : 0,
-						2 : 0,
-						3 : 2,
-						4 : 0,
-						5 : 0	
-					}
-				}	
-
 			}
-
 		}
-		
-	
-	
-	
 	}
-
 }
