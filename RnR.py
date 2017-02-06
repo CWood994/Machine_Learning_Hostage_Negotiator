@@ -48,8 +48,14 @@ if len(configs['solr_configs']) > 0:
                                                             'collections'][0])
     # Can also refer to config by name
 
-    results = pysolr_client.search('bananas')
+    results = pysolr_client.search('how do i build trust')
     print('{0} documents found'.format(len(results.docs)))
+
+    i = 0
+    for test in results:
+        print str(i) + ': ' + test['body'][0]
+        i += 1
+
 
 # Rankers
 
