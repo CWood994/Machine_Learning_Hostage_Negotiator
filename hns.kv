@@ -1,0 +1,44 @@
+#:kivy 1.0.9
+
+<hnsGame>:    
+    canvas:
+        Rectangle:
+            pos: 0, self.center_y
+            size: self.width, 10
+        Rectangle:
+			pos: self.center_x, 0
+			size: 1, self.height/2
+		Rectangle:
+			source: 'watson_avatar.jpg'
+			size: self.width, self.height / 2
+			pos: 0, self.height / 2
+
+	ScrollView:
+		left: root.width / 2 
+		right: root.width 
+		height: (root.height / 4) * 2
+		width: root.width / 2 
+		center_x: root.width * 3 / 4
+		center_y: root.height / 4
+		Label:
+			height: self.texture_size[1]
+			size_hint_y: None
+			valign: 'top'
+			padding: 5, 5
+			text_size: self.width, None
+			text: "Sample Text: Kivy drawing instructions are not automatically relative to the widgets position or size. You therefore you need to consider these factors when drawing. In order to make your drawing instructions relative to the widget, the instructions need either to be declared in the KvLang or bound to pos and size changes. Please see Adding a Background to a Layout for more detail."
+        
+    
+	TextInput:
+		text: 'Enter your query here'
+		top: root.height / 2
+		width: root.width / 2
+		left: 0
+		scroll_x: 0
+		right: root.width / 2
+		height: root.height / 2
+		center_x: root.width / 4
+		center_y: root.height / 4
+		multiline: False
+		on_text_validate: root.watson_query(self.text)
+		use_bubble: True
