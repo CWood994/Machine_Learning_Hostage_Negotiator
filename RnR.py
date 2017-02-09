@@ -7,9 +7,6 @@ retrieve_and_rank = RetrieveAndRankV1(
 
 # Solr clusters
 
-solr_clusters = retrieve_and_rank.list_solr_clusters()
-print(json.dumps(solr_clusters, indent=2))
-
 # created_cluster = retrieve_and_rank.create_solr_cluster(cluster_name='Test
 # Cluster', cluster_size='1')
 # print(json.dumps(created_cluster, indent=2))
@@ -48,7 +45,7 @@ if len(configs['solr_configs']) > 0:
                                                             'collections'][0])
     # Can also refer to config by name
 
-    results = pysolr_client.search('how do i build trust')
+    results = pysolr_client.search('Managing Quid Pro Quo Effectively')
     print('{0} documents found'.format(len(results.docs)))
 
     i = 0
