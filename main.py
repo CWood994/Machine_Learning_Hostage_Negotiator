@@ -10,6 +10,8 @@ from kivy.graphics.texture import *
 class hnsGame(Widget):
 	def watson_query(self, text):
 		print(text)
+		print(self.ids['scrollid'].children[0].text)
+		self.ids['scrollid'].children[0].text = text
 	pass
 
 class hnsApp(App):
