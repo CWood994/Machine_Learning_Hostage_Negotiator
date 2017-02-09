@@ -29,7 +29,7 @@ class hnsGame(Widget):
 		    pysolr_client = retrieve_and_rank.get_pysolr_client(solr_cluster_id,
 		                                                        collections[
 		                                                            'collections'][0])
-		    results = pysolr_client.search('Managing Quid Pro Quo Effectively')
+		    results = pysolr_client.search(text)
 		    print('{0} documents found'.format(len(results.docs)))
 
 		    i = 0
