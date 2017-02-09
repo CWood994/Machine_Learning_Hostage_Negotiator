@@ -52,4 +52,4 @@ build:
     - script:
         name: pylint
         code: |
-          find project_name -name urls.py | xargs pylint
+          find . -name '*.py' | xargs pylint
