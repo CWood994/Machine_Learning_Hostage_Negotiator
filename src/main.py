@@ -74,6 +74,8 @@ class hnsGame(Widget):
         answer = self.watson(text)
         #print newText in the Gui
 
+        with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
+            audio_file.write(text_to_speech.synthesize(answer, accept='audio/wav', voice="en-US_MichaelVoice"))
         self.ids['scrollid'].children[0].text = "Watson: " + answer
         if platform == "linux" or platform == "linux2" or platform == "darwin":
             Popen(["play", 'output.wav'])
