@@ -78,7 +78,7 @@ class hnsGame(Widget):
             if platform == "linux" or platform == "linux2" or platform == "darwin":
                 Popen(["play", 'output.wav'])
             elif platform == "win32":
-                Popen(["sox", 'output.wav', '-t', 'waveaudio'])
+                Popen(["sox", 'output.wav', '-t', 'waveaudio'], shell = True)
         #Ignore audio problems if they exist instead of
         #interrupting the user
         except:
