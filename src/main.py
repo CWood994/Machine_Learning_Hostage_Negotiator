@@ -20,7 +20,7 @@ configs = retrieve_and_rank.list_configs(solr_cluster_id=solr_cluster_id)
 #print(json.dumps(configs, indent=2))
 
 #regular expression identifier for text that goes to R&R
-rr_text_id = "^\w*\s*watson[,.-!]{0,1}\s+"
+rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
 
 #This is the games main widget.
 #TODO make another widget to float ontop as an ingame menu or add
@@ -76,7 +76,6 @@ class hnsGame(Widget):
         self.ids['textInput'].text =  text
 
     def isWatsonQuery(self, text):
-        print(re.search(rr_text_id, text, re.IGNORECASE))
         if re.search(rr_text_id, text, re.IGNORECASE):
             return True
         else:
