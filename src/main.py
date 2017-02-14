@@ -8,6 +8,15 @@ from kivy.core.window import Window
 from kivy.graphics.texture import *
 import json, sys, re
 from watson_developer_cloud import RetrieveAndRankV1
+from os.path import join, dirname
+from watson_developer_cloud import TextToSpeechV1
+from subprocess import Popen
+from sys import platform
+
+text_to_speech = TextToSpeechV1(
+    username='f112c56c-35ec-4728-b1ca-fe29fcd36f58',
+    password='vijGcGcSV2KX',
+    x_watson_learning_opt_out=True)  # Optional flag
 
 retrieve_and_rank = RetrieveAndRankV1(
     username='6cb8a2a2-01fc-4bad-ae24-b741082df113',
@@ -47,6 +56,7 @@ class hnsGame(Widget):
 
             i = 0
             newText = ''
+
             #This catches an empty docset which would
             #otherwise throw errors
             try:
@@ -63,7 +73,12 @@ class hnsGame(Widget):
         self.ids['mainImage'].source = "watson_avatar.jpg"
         answer = self.watson(text)
         #print newText in the Gui
+
         self.ids['scrollid'].children[0].text = "Watson: " + answer
+        if platform == "linux" or platform == "linux2" or platform == "darwin":
+            Popen(["play", 'output.wav'])
+        elif platform == "win32":
+            Popen(["sox", 'output.wav', '-t', 'waveaudio'])
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
