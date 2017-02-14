@@ -22,11 +22,8 @@ retrieve_and_rank = RetrieveAndRankV1(
     username='6cb8a2a2-01fc-4bad-ae24-b741082df113',
     password='cxSIPwhVnZft')
 solr_cluster_id = 'scff9b5a52_0a69_4a59_8e98_85c2184af3c5'
-#status = retrieve_and_rank.get_solr_cluster_status(
-    #solr_cluster_id=solr_cluster_id)
-#print(json.dumps(status, indent=2))
+
 configs = retrieve_and_rank.list_configs(solr_cluster_id=solr_cluster_id)
-#print(json.dumps(configs, indent=2))
 
 #regular expression identifier for text that goes to R&R
 rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
@@ -47,7 +44,6 @@ class hnsGame(Widget):
         if len(configs['solr_configs']) > 0:
             collections = retrieve_and_rank.list_collections(
                 solr_cluster_id=solr_cluster_id)
-            #print(json.dumps(collections, indent=2))
 
             pysolr_client = retrieve_and_rank.get_pysolr_client(solr_cluster_id,
                                                                 collections[
@@ -63,6 +59,7 @@ class hnsGame(Widget):
                 response = results.docs[0]['body'][0]
             except IndexError:
                 response = "I'm sorry, they don't teach that at the academy"
+                
         #Error catch for improper solr setup
         else:
             print("Error: Solr misconfigured. Configs couldn't be read.")
@@ -74,13 +71,18 @@ class hnsGame(Widget):
         answer = self.watson(text)
         #print newText in the Gui
 
-        with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
-            audio_file.write(text_to_speech.synthesize(answer, accept='audio/wav', voice="en-US_MichaelVoice"))
-        self.ids['scrollid'].children[0].text = "Watson: " + answer
-        if platform == "linux" or platform == "linux2" or platform == "darwin":
-            Popen(["play", 'output.wav'])
-        elif platform == "win32":
-            Popen(["sox", 'output.wav', '-t', 'waveaudio'])
+        try:
+            with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
+                audio_file.write(text_to_speech.synthesize(answer, accept='audio/wav', voice="en-US_MichaelVoice"))
+            self.ids['scrollid'].children[0].text = "Watson: " + answer
+            if platform == "linux" or platform == "linux2" or platform == "darwin":
+                Popen(["play", 'output.wav'])
+            elif platform == "win32":
+                Popen(["sox", 'output.wav', '-t', 'waveaudio'])
+        #Ignore audio problems if they exist instead of
+        #interrupting the user
+        except:
+            pass
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC

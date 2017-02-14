@@ -8,6 +8,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Audio files
+*.mp4
+*.wav
+*.ogg
+*.mp3
+
 # Wercker for testing
 .wercker
 
