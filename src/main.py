@@ -10,15 +10,13 @@ import json
 from watson_developer_cloud import RetrieveAndRankV1
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
-import subprocess #import Popen
-
+from subprocess import Popen
+from sys import platform
 
 text_to_speech = TextToSpeechV1(
     username='f112c56c-35ec-4728-b1ca-fe29fcd36f58',
     password='vijGcGcSV2KX',
     x_watson_learning_opt_out=True)  # Optional flag
-
-print(json.dumps(text_to_speech.voices(), indent=2))
 
 retrieve_and_rank = RetrieveAndRankV1(
     username='6cb8a2a2-01fc-4bad-ae24-b741082df113',
@@ -63,8 +61,10 @@ class hnsGame(Widget):
             audio_file.write(text_to_speech.synthesize(answer, accept='audio/wav',
                                   voice="en-US_MichaelVoice"))
         self.ids['scrollid'].children[0].text = "Watson: " + answer
-        subprocess.call(["ffplay", "-nodisp", "-autoexit", 'output.wav'])
-        #Popen(["play", 'output.wav'])
+        if platform == "linux" or platform == "linux2" or platform == "darwin":
+            Popen(["play", 'output.wav'])
+        elif platform == "win32":
+            Popen(["sox", 'output.wav', '-t', 'waveaudio'])
 
     def user_input(self, text):
         text = text.lower()
