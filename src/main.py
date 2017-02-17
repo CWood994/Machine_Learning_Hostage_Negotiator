@@ -8,6 +8,7 @@ from kivy.core.window import Window
 from kivy.graphics.texture import *
 import json, sys, re
 from watson_developer_cloud import RetrieveAndRankV1
+from watson_developer_cloud import NaturalLanguageClassifierV1
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
 from subprocess import Popen
@@ -23,6 +24,10 @@ retrieve_and_rank = RetrieveAndRankV1(
     password='cxSIPwhVnZft')
 solr_cluster_id = 'scff9b5a52_0a69_4a59_8e98_85c2184af3c5'
 
+natural_language_classifier = NaturalLanguageClassifierV1(
+    username='9215e28a-3cff-4d3b-ad99-44d35e641876',
+    password='6CXwnXGbblMh')
+
 configs = retrieve_and_rank.list_configs(solr_cluster_id=solr_cluster_id)
 
 #regular expression identifier for text that goes to R&R
@@ -33,8 +38,11 @@ rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
 # navigation tools somewhere in this widget
 class hnsGame(Widget):
     def hostage_taker_query(self, text):
+        classes = natural_language_classifier.classify('f5bbc5x176-nlc-3978', text)
+        print(json.dumps(classes, indent=2))
+        NLC_class = classes['classes'][0]['class_name']
         self.ids['mainImage'].source = "hostage_1.jpg"
-        self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + "Leave me alone!"
+        self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + "Leave me alone! I don't wanna talk about: " + NLC_class
 
 
     #sends a request(text) to IBM's servers for R&R and
