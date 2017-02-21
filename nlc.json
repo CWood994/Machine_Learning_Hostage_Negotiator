@@ -1,0 +1,53 @@
+[
+	{
+		"name": "temp",
+		"nlc_class": "greeting",
+		"requirements": 
+		[
+		{
+			"nodes": ["temp"],
+			"rapport": "*",
+			"other": [],
+			"response": "repeating_yourself_statement",
+			"effects": ["terminal"]
+		},
+		{
+			"nodes": ["temp2", "temp3"],
+			"rapport": ">5",
+			"other": [],
+			"response": "introduce_self"
+		},
+		{
+			"nodes": ["temp2", "temp3"],
+			"rapport": "<5",
+			"other": [],
+			"response": "insult"
+		},
+		{
+			"nodes": [],
+			"rapport": "*",
+			"other": [],
+			"response": "error"
+		}
+		]
+	},
+	{
+		"name": "temp2",
+		"nlc_class": "insult",
+		"requirements":
+		[
+		{
+			"nodes": ["temp"],
+			"rapport": "*",
+			"other": [],
+			"response": "insult"
+		},
+		{
+			"nodes": ["temp3"],
+			"rapport": "*",
+			"other": [],
+			"response": "insult"
+		}
+		]
+	}
+]

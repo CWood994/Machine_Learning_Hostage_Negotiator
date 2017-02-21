@@ -1,0 +1,18 @@
+[
+	{
+		"name": "repeating_yourself_statement",
+		"text": "You already said that!"
+	},
+	{
+		"name": "introduce_self",
+		"text": "I am sir Wilhelm the second"
+	},
+	{
+		"name": "error",
+		"text": "This shouldn't exist"
+	},
+	{
+		"name": "insult",
+		"text": "Go to hell, please"
+	}
+]
