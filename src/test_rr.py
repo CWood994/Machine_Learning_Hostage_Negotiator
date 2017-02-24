@@ -35,9 +35,9 @@ class RetrieveRankTest(unittest.TestCase):
         self.assertTrue(self.retran.cleanse_rr_string("help WATSON! he's crazy") == "he's crazy")
 
     #Test that a valid wav is created by rr_process (shouldn't be a problem)
-    def test_valid_wav_creation(self):
-        self.retran.rr_process("beep")
-        self.assertTrue(sndhdr.what('output.wav')[0]=='wav')
+#    def test_valid_wav_creation(self):
+#        self.retran.rr_process("beep")
+#        self.assertTrue(sndhdr.what('output.wav')[0]=='wav')
 
 if __name__ == '__main__':
     unittest.main()
