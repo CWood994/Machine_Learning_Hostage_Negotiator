@@ -7,16 +7,19 @@ from watson_developer_cloud import TextToSpeechV1
 from subprocess import Popen
 from sys import platform
 
-class text_processor():
+class utils():
 
     def __init__(self):
         self.init_services()
         #regular expression identifier for text that goes to R&R
         self.rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
 
+    #Get rid of the rr_text_id regular expression
     def cleanse_rr_string(self, text):
         return re.sub(self.rr_text_id,'',text, flags=re.IGNORECASE)
 
+    #Necessary to initialize FIXME usernames and passwords should be
+    #read from an outside file and not hardcoded
     def init_services(self):
         self.text_to_speech = TextToSpeechV1(
             username='f112c56c-35ec-4728-b1ca-fe29fcd36f58',
@@ -41,9 +44,11 @@ class text_processor():
     def nlc_classify_top_result(self, text):
         return self.nlc_classify(text)['classes'][0]['class_name']
 
+    #Takes some text destined for rr, gets the first result with rr_query_
+    #first_result and then uses text to speech to write a wav file with the
+    #response text
     def rr_process(self, text):
         answer = self.rr_query_first_result(text)
-        self.printlog(text)
         #print newText in the Gui
 
         try:
@@ -55,11 +60,6 @@ class text_processor():
         except:
             pass
         return answer
-
-    def printlog(self, message):
-       f = open('/home/bam/Documents/code/CSE5914/src/log.txt','a') 
-       f.write(message+"\n")
-       f.close()
 
     #Play an audio file
     def play_wav(self, filename):
@@ -77,18 +77,19 @@ class text_processor():
     def user_input(self, text):
         text = text.lower()
         if self.isWatsonQuery(text):
-            self.printlog(text)
             self.rr_process(re.sub(self.rr_text_id,'',text, flags=re.IGNORECASE))
         else:
-            self.printlog("How?")
             self.hostage_taker_query(text)
 
+    #Check if the input should go to RR based on the regular expression
+    #rr_text_id
     def isWatsonQuery(self, text):
         if re.search(self.rr_text_id, text, re.IGNORECASE):
             return True
         else:
             return False
 
+    #Actually sends the rr query(text) to Watson and returns the result set
     def rr_query(self, text):
         results = ''
         if len(self.configs['solr_configs']) > 0:
@@ -105,8 +106,7 @@ class text_processor():
             sys.exit(1)
         return results
 
-    #sends a request(text) to IBM's servers for R&R and
-    #returns the response
+    #runs rr_query and returns the first response body or a fallback result if empty
     def rr_query_first_result(self, text):
         response = ''
         results = self.rr_query(text)

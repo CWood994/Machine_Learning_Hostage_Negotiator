@@ -59,3 +59,8 @@ build:
           else
             warn "Syntax problems. Please use $linter to fix these"
           fi
+    # Run tests
+    - script:
+        name: pyunit
+        code: |
+          python src/test_rr.py

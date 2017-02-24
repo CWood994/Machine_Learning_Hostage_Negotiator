@@ -11,7 +11,7 @@ from os.path import join, dirname
 from subprocess import Popen
 from sys import platform
 
-from text_processor import text_processor
+from game_utils import utils
 
 #This is the games main widget.
 #TODO make another widget to float ontop as an ingame menu or add
@@ -20,7 +20,7 @@ class hnsGame(Widget):
 
     def __init__(self):
         super(hnsGame, self).__init__()
-        self.utils = text_processor()
+        self.utils = utils()
 
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
