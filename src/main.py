@@ -12,6 +12,7 @@ from subprocess import Popen
 from sys import platform
 
 from game_utils import utils
+from game_state import game_state
 
 #This is the games main widget.
 #TODO make another widget to float ontop as an ingame menu or add
@@ -20,12 +21,15 @@ class hnsGame(Widget):
 
     def __init__(self):
         super(hnsGame, self).__init__()
+        self.game_state = game_state("nlc.json", "response.json")
+        start_text = self.game_state.start() #TODO: implement start intro thing
         self.utils = utils()
 
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
         self.ids['mainImage'].source = "hostage_1.jpg"
-        self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + "Leave me alone! I don't wanna talk about: " + NLC_class
+        response = self.game_state.move_state(NLC_class)
+        self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
 
     def rr_process(self, text):
         self.ids['mainImage'].source = "watson_avatar.jpg"

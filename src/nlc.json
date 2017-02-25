@@ -1,0 +1,262 @@
+[
+    {
+        "name": "HELP_YOU_LOW",
+        "nlc_class": "HELP_YOU",
+        "requirements":
+        [
+        {
+            "rapport": "<3",
+            "response": "HELP_YOU_LOW_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "HELP_YOU_HIGH",
+        "nlc_class": "HELP_YOU",
+        "requirements":
+        [
+        {
+            "rapport": ">=3",
+            "response": "HELP_YOU_HIGH_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "ASK_NAME_1",
+        "nlc_class": "ASK_NAME",
+        "requirements":
+        [
+        {
+            "response": "ASK_NAME_REPLY",
+            "effects": ["rapport:+1"]
+        }
+        ]
+    },
+    {
+        "name": "ASSERT_AUTHORITY_1",
+        "nlc_class": "ASSERT_AUTHORITY",
+        "requirements":
+        [
+        {
+            "response": "ASSERT_AUTHORITY_REPLY",
+            "effects": ["rapport”:”+1"]
+        }
+        ]
+    },
+    {
+        "name": "RELEASE_All_HOSTAGES_1",
+        "nlc_class": "RELEASE_All_HOSTAGES",
+        "requirements":
+        [
+        {
+            "response": "RELEASE_All_HOSTAGES_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "ASK_INTENTIONS_1",
+        "nlc_class": "ASK_INTENTIONS",
+        "requirements":
+        [
+        {
+            "response": "ASK_INTENTIONS_REPLY",
+            "effects": ["rapport”:”+1"]
+
+        }
+        ]
+    },
+    {
+        "name": "ASSURE_SAFETY_LOW",
+        "nlc_class": "ASSURE_SAFETY",
+        "requirements":
+        [
+        {
+            "rapport": "<3",
+            "response": "ASSURE_SAFETY_LOW_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "ASSURE_SAFETY_HIGH",
+        "nlc_class": "ASSURE_SAFETY",
+        "requirements":
+        [
+        {
+            "rapport": ">=3",
+            "response": "ASSURE_SAFETY_HIGH_REPLY",
+            "effects": ["rapport”:”+1"]
+        }
+        ]
+    },
+    {
+        "name": "WHOS_THERE_1",
+        "nlc_class": "WHOS_THERE",
+        "requirements":
+        [
+        {
+            "response": "WHOS_THERE_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "BACKGROUND_1",
+        "nlc_class": "BACKGROUND",
+        "requirements":
+        [
+        {
+            "response": "BACKGROUND_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "DOWNPLAY_1",
+        "nlc_class": "DOWNPLAY",
+        "requirements":
+        [
+        {
+            "response": "DOWNPLAY_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "GIVE_UP_1",
+        "nlc_class": "GIVE_UP",
+        "requirements":
+        [
+        {
+            "response": "GIVE_UP_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "MAKE_OFFERING_1",
+        "nlc_class": "MAKE_OFFERING",
+        "requirements":
+        [
+        {
+            "response": "MAKE_OFFERING_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "WHY_MONEY_1",
+        "nlc_class": "WHY_MONEY",
+        "requirements":
+        [
+        {
+            "response": "WHY_MONEY_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "OFFER_ALTERNATIVES_1",
+        "nlc_class": "OFFER_ALTERNATIVES",
+        "requirements":
+        [
+        {
+            "response": "OFFER_ALTERNATIVES_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "WHY_HOSTAGES_1",
+        "nlc_class": "WHY_HOSTAGES",
+        "requirements":
+        [
+        {
+            "response": "WHY_HOSTAGES_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "VENT_1",
+        "nlc_class": "VENT",
+        "requirements":
+        [
+        {
+            "response": "VENT_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "MAKING_WORSE_1",
+        "nlc_class": "MAKING_WORSE",
+        "requirements":
+        [
+        {
+            "response": "MAKING_WORSE_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "IS_ARMED_1",
+        "nlc_class": "IS_ARMED",
+        "requirements":
+        [
+        {
+            "response": "IS_ARMED_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "WHAT_BILLS_1",
+        "nlc_class": "WHAT_BILLS",
+        "requirements":
+        [
+        {
+            "response": "WHAT_BILLS_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "REFUSAL_1",
+        "nlc_class": "REFUSAL",
+        "requirements":
+        [
+        {
+            "response": "REFUSAL_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "WHY_HAVE_MEDICAL_1",
+        "nlc_class": "WHY_HAVE_MEDICAL",
+        "requirements":
+        [
+        {
+            "response": "WHY_HAVE_MEDICAL_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "WHY_WIFE_SICK_1",
+        "nlc_class": "WHY_WIFE_SICK",
+        "requirements":
+        [
+        {
+            "response": "WHY_WIFE_SICK_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "EMPATHY_1",
+        "nlc_class": "EMPATHY",
+        "requirements":
+        [
+        {
+            "response": "EMPATHY_REPLY"
+        }
+        ]
+    },
+    {
+        "name": "HAD_CANCER_1",
+        "nlc_class": "HAD_CANCER",
+        "requirements":
+        [
+        {
+            "response": "HAD_CANCER_REPLY"
+        }
+        ]
+    }
+]
+

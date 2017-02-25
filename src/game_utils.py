@@ -38,7 +38,7 @@ class utils():
         self.configs = self.retrieve_and_rank.list_configs(solr_cluster_id=self.solr_cluster_id)
 
     def nlc_classify(self, text):
-        classes = self.natural_language_classifier.classify('f5bbc5x176-nlc-3978', text)
+        classes = self.natural_language_classifier.classify('4d5c10x177-nlc-910', text)
         return classes
 
     def nlc_classify_top_result(self, text):
