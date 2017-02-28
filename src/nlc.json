@@ -104,7 +104,7 @@
         "requirements":
         [
         {
-            "response": "BACKGROUND_REPLY"
+            "response": "BACKGROUND_REPLY",
             "effects": ["rapport:+1"]
         }
         ]
@@ -115,7 +115,7 @@
         "requirements":
         [
         {
-            "response": "DOWNPLAY_REPLY"
+            "response": "DOWNPLAY_REPLY",
             "effects": ["anger:-1"]
         }
         ]
@@ -126,7 +126,7 @@
         "requirements":
         [
         {
-            "response": "GIVE_UP_REPLY"
+            "response": "GIVE_UP_REPLY",
             "effects": ["anger:+1"]
         }
         ]
@@ -137,7 +137,7 @@
         "requirements":
         [
         {
-            "response": "MAKE_OFFERING_REPLY"
+            "response": "MAKE_OFFERING_REPLY",
             "effects": ["rapport:+1"]
         }
         ]
@@ -178,7 +178,7 @@
         "requirements":
         [
         {
-            "response": "VENT_REPLY"
+            "response": "VENT_REPLY",
             "effects": ["anger:-1"]
         }
         ]
@@ -189,7 +189,7 @@
         "requirements":
         [
         {
-            "response": "MAKING_WORSE_REPLY"
+            "response": "MAKING_WORSE_REPLY",
             "effects": ["anger:+1"]
         }
         ]
@@ -220,7 +220,7 @@
         "requirements":
         [
         {
-            "response": "REFUSAL_REPLY"
+            "response": "REFUSAL_REPLY",
             "effects": ["anger:+1"]
         }
         ]
@@ -251,7 +251,7 @@
         "requirements":
         [
         {
-            "response": "EMPATHY_REPLY"
+            "response": "EMPATHY_REPLY",
             "effects": ["rapport:+1", "anger:-1"]
         }
         ]
@@ -265,30 +265,30 @@
             "response": "HAD_CANCER_REPLY"
         }
         ]
-    }
+    },
     {
 		"name": "THREATEN_1",
 		"nlc_class": "THREATEN",
 		"requirements":
 		[
 		{
-			"response": "THREATEN_REPLY"
+			"response": "THREATEN_REPLY",
             "effects": ["anger:+2", "fear:+1"]
             
 		}
 		]
-	}
+	},
 	{
 		"name": "TAUNT_1",
 		"nlc_class": "TAUNT",
 		"requirements":
 		[
 		{
-			"response": "TAUNT_REPLY"
+			"response": "TAUNT_REPLY",
             "effects": ["anger:+1"]
 		}
 		]
-	}
+	},
 	{
 		"name": "ARE_YOU_GOING_TO_HURT_THE_HOSTAGES_1",
 		"nlc_class": "ARE_YOU_GOING_TO_HURT_THE_HOSTAGES",
@@ -298,26 +298,26 @@
 			"response": "ARE_YOU_GOING_TO_HURT_THE_HOSTAGES_REPLY"
 		}
 		]
-	}
+	},
 	{
 		"name": "PLEAD_1",
 		"nlc_class": "PLEAD",
 		"requirements":
 		[
 		{
-			"response": "PLEAD_REPLY"
+			"response": "PLEAD_REPLY",
             "effects": ["anger:-1"]
             
 		}
 		]
-	}
+	},
 	{
 		"name": "INTRO_SELF_1",
 		"nlc_class": "INTRO_SELF",
 		"requirements":
 		[
 		{
-			"response": "INTRO_SELF_REPLY"
+			"response": "INTRO_SELF_REPLY",
             "effects": ["rapport:+1"]
 		}
 		]
