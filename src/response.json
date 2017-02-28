@@ -23,5 +23,7 @@
     "WHY_HAVE_MEDICAL_REPLY" : "My wife was sick.",
     "WHY_WIFE_SICK_REPLY" : "She had terminal cancer.",
     "EMPATHY_REPLY" : "You do not understand how I feel.",
-    "HAD_CANCER_REPLY" : "Yes she had cancer, she did not make it." 
+    "HAD_CANCER_REPLY" : "Yes she had cancer, she did not make it.", 
+    "OTHER_REPLY" : "Quit playing around with me.",
+    "START_SCENARIO" : "Situation report: Single man sitting in a jewelry store. Armed status unknown. Hostage status unknown. Proceed with caution!"
 }
