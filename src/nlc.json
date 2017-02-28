@@ -39,7 +39,7 @@
         [
         {
             "response": "ASSERT_AUTHORITY_REPLY",
-            "effects": ["rapport”:”+1"]
+            "effects": ["rapport:+1"]
         }
         ]
     },
@@ -60,7 +60,7 @@
         [
         {
             "response": "ASK_INTENTIONS_REPLY",
-            "effects": ["rapport”:”+1"]
+            "effects": ["rapport:+1"]
 
         }
         ]
@@ -84,7 +84,7 @@
         {
             "rapport": ">=3",
             "response": "ASSURE_SAFETY_HIGH_REPLY",
-            "effects": ["rapport”:”+1"]
+            "effects": ["rapport:+1"]
         }
         ]
     },
@@ -105,6 +105,7 @@
         [
         {
             "response": "BACKGROUND_REPLY"
+            "effects": ["rapport:+1"]
         }
         ]
     },
@@ -115,6 +116,7 @@
         [
         {
             "response": "DOWNPLAY_REPLY"
+            "effects": ["anger:-1"]
         }
         ]
     },
@@ -125,6 +127,7 @@
         [
         {
             "response": "GIVE_UP_REPLY"
+            "effects": ["anger:+1"]
         }
         ]
     },
@@ -135,6 +138,7 @@
         [
         {
             "response": "MAKE_OFFERING_REPLY"
+            "effects": ["rapport:+1"]
         }
         ]
     },
@@ -175,6 +179,7 @@
         [
         {
             "response": "VENT_REPLY"
+            "effects": ["anger:-1"]
         }
         ]
     },
@@ -185,6 +190,7 @@
         [
         {
             "response": "MAKING_WORSE_REPLY"
+            "effects": ["anger:+1"]
         }
         ]
     },
@@ -215,6 +221,7 @@
         [
         {
             "response": "REFUSAL_REPLY"
+            "effects": ["anger:+1"]
         }
         ]
     },
@@ -245,6 +252,7 @@
         [
         {
             "response": "EMPATHY_REPLY"
+            "effects": ["rapport:+1", "anger:-1"]
         }
         ]
     },
@@ -258,5 +266,62 @@
         }
         ]
     }
+    {
+		"name": "THREATEN_1",
+		"nlc_class": "THREATEN",
+		"requirements":
+		[
+		{
+			"response": "THREATEN_REPLY"
+            "effects": ["anger:+2", "fear:+1"]
+            
+		}
+		]
+	}
+	{
+		"name": "TAUNT_1",
+		"nlc_class": "TAUNT",
+		"requirements":
+		[
+		{
+			"response": "TAUNT_REPLY"
+            "effects": ["anger:+1"]
+		}
+		]
+	}
+	{
+		"name": "ARE_YOU_GOING_TO_HURT_THE_HOSTAGES_1",
+		"nlc_class": "ARE_YOU_GOING_TO_HURT_THE_HOSTAGES",
+		"requirements":
+		[
+		{
+			"response": "ARE_YOU_GOING_TO_HURT_THE_HOSTAGES_REPLY"
+		}
+		]
+	}
+	{
+		"name": "PLEAD_1",
+		"nlc_class": "PLEAD",
+		"requirements":
+		[
+		{
+			"response": "PLEAD_REPLY"
+            "effects": ["anger:-1"]
+            
+		}
+		]
+	}
+	{
+		"name": "INTRO_SELF_1",
+		"nlc_class": "INTRO_SELF",
+		"requirements":
+		[
+		{
+			"response": "INTRO_SELF_REPLY"
+            "effects": ["rapport:+1"]
+		}
+		]
+	}
+
 ]
 
