@@ -26,5 +26,12 @@
     "EMPATHY_REPLY" : "You do not understand how I feel.",
     "HAD_CANCER_REPLY" : "Yes, she had cancer, she did not make it.", 
     "OTHER_REPLY" : "Quit playing around with me.",
-    "START_SCENARIO" : "Situation report: Single man sitting in a jewelry store. Armed status unknown. Hostage status unknown. Proceed with caution!"
+    "START_SCENARIO" : "Situation report: Single man sitting in a jewelry store. Armed status unknown. Hostage status unknown. Proceed with caution!",
+    "HOW_DO_YOU_WANT_MONEY_REPLY" : "Give it to me cash only.",
+    "MOVE_REPLY" : "I am not moving anywhere.",
+    "AMMO_REPLY" : "I am loaded."
+    "HOW_MUCH_TAKEN_REPLY" : "Why would it matter have I taken?"
+    "HOW_MUCH_MONEY_REPLY" : "Quarter of a million dollars."
+    "GREETINGS_REPLY" : "Hello."
+    
 }
