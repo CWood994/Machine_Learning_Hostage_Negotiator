@@ -321,7 +321,85 @@
             "effects": ["rapport:+1"]
 		}
 		]
-	}
+	},
+	{
+		"name": "HOW_DO_WANT_MONEY",
+		"nlc_class": "HOW_DO_WANT_MONEY",
+		"requirements":
+		[
+		{
+			"response": "HOW_DO_WANT_MONEY_REPLY",
+            "effects": ["rapport:+1", "anger:-1"]
+		}
+		]
+	},
+	{
+		"name": "MOVE",
+		"nlc_class": "CAN_YOU_MOVE",
+		"requirements":
+		[
+		{
+			"response": "MOVE_REPLY",
+            "effects": ["anger:-1"]
+		}
+		]
+	},
+	{
+		"name": "AMMO",
+		"nlc_class": "DOES_YOUR_GUN_HAVE_AMMO",
+		"requirements":
+		[
+		{
+			"response": "AMMO_REPLY",
+            "effects": ["anger:+1"]
+		}
+		]
+	},
+	{
+		"name": "HOW_MUCH_TAKEN",
+		"nlc_class": "HOW_MUCH_DID_YOU_TAKE",
+		"requirements":
+		[
+		{
+			"response": "WHAT_WAS_TAKEN_REPLY",
+            "effects": ["rapport:+1", "anger:+1"]
+		}
+		]
+	},
+	{
+		"name": "HOW_DO_WANT_MONEY",
+		"nlc_class": "HOW_DO_WANT_MONEY",
+		"requirements":
+		[
+		{
+			"response": "HOW_DO_WANT_MONEY_REPLY",
+            "effects": ["rapport:+1", "anger:-1"]
+		}
+		]
+	},
+	{
+		"name": "HOW_MUCH_MONEY",
+		"nlc_class": "HOW_MUCH_MONEY",
+		"requirements":
+		[
+		{
+			"response": "HOW_MUCH_MONEY_REPLY",
+            "effects": ["rapport:+1", "anger:-1"]
+		}
+		]
+	},
+	{
+		"name": "GREETING",
+		"nlc_class": "GREETINGS",
+		"requirements":
+		[
+		{
+			"response": "GREETINGS_REPLY",
+            "effects": ["rapport:+1"]
+		}
+		]
+	},
+	
 
 ]
 
