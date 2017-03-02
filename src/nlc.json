@@ -59,7 +59,21 @@
         "requirements":
         [
         {
+            "rapport": ">=3",
             "response": "ASK_INTENTIONS_REPLY",
+            "effects": ["rapport:+1"]
+
+        }
+        ]
+    },
+        {
+        "name": "ASK_INTENTIONS_2",
+        "nlc_class": "ASK_INTENTIONS",
+        "requirements":
+        [
+        {
+            "rapport": "<3",
+            "response": "ASK_INTENTIONS_REPLY_2",
             "effects": ["rapport:+1"]
 
         }

@@ -48,6 +48,8 @@ class hnsGame(Widget):
         else:
             self.hostage_taker_query(text)
         self.ids['textInput'].text =  text
+        if self.game_state.isTerminal == True:
+            print "gameEnded"
 
 class hnsApp(App):
     def build(self):

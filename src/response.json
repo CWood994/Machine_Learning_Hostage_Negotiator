@@ -5,6 +5,7 @@
     "ASSERT_AUTHORITY_REPLY" : "Good, you can help me then.",
     "RELEASE_All_HOSTAGES_REPLY" : "I am not releasing anyone until I get my money.",
     "ASK_INTENTIONS_REPLY" : "I am having a bad day and have ran out of options.",
+    "ASK_INTENTIONS_REPLY_2" : "I needed money.",
     "ASSURE_SAFETY_LOW_REPLY" : "I don't believe you. I need to know I will not be harmed.",
     "ASSURE_SAFETY_HIGH_REPLY" : "Are you sure? You seem honest but I have my doubts.",
     "WHOS_THERE_REPLY" : "I have a young man with me.",
@@ -20,10 +21,10 @@
     "IS_ARMED_REPLY" : "Yes, I have a gun.",
     "WHAT_BILLS_REPLY" : "I have medical bills that need to be payed.",
     "REFUSAL_REPLY" : "I need the money. I cannot afford these bills currently.",
-    "WHY_HAVE_MEDICAL_REPLY" : "My wife was sick.",
+    "WHY_HAVE_MEDICAL_REPLY" : "My wife was in the hospital.",
     "WHY_WIFE_SICK_REPLY" : "She had terminal cancer.",
     "EMPATHY_REPLY" : "You do not understand how I feel.",
-    "HAD_CANCER_REPLY" : "Yes she had cancer, she did not make it.", 
+    "HAD_CANCER_REPLY" : "Yes, she had cancer, she did not make it.", 
     "OTHER_REPLY" : "Quit playing around with me.",
     "START_SCENARIO" : "Situation report: Single man sitting in a jewelry store. Armed status unknown. Hostage status unknown. Proceed with caution!"
 }

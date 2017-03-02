@@ -7,6 +7,7 @@ class game_state():
         self.response = response
         self.init_situation()
         self.visited = []
+        self.isTerminal = False
 
     def init_situation(self):
         json_data_sit=open(self.situation).read()
@@ -47,17 +48,28 @@ class game_state():
                                     self.anger = self.anger + int(array[1])
                                 elif array[0] == 'fear':
                                     self.fear = self.fear + int(array[1])
-                        response = self.convert_response(requirements["response"])
+                        if "terminal" in requirements:
+                            self.isTerminal = True
+
+                        try:
+                            response = self.convert_response(requirements["response"])
+                        except:
+                            print "ERROR: reponse not found for: " + requirements["response"]
+                            response = "You're giving me a headache!"
                         self.visited.append(node["name"])
                         return response
+
                         
 
-        return "ERROR: No state found for NLC_CLASS: " + NLC_CLASS + " : %d %d %d %d" % (self.rapport, self.anger, self.fear,self.sad)
+        print "ERROR: No state found for NLC_CLASS: " + NLC_CLASS + " : %d %d %d %d" % (self.rapport, self.anger, self.fear,self.sad)
+        return "Quit playing games with me!"
+
 
     def check_requirements(self, json):
         #BRANDOM THIS CODE IS GOLD NO FIXERINO
         print(json)
         for thing in json.keys():
+            print thing
             if thing in self.attributes:
                 delta = json[thing]
                 sign = delta[0]
