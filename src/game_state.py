@@ -37,8 +37,6 @@ class game_state():
                             for effect in requirements['effects']:
                                 print(effect)
                                 array = effect.split(":")
-                                print array[0]
-                                print array[1]
                                 #todo: adjust effects if this all of this is true...
                                 if array[0] == 'rapport':
                                     self.rapport = int(array[1]) + self.rapport
@@ -67,9 +65,7 @@ class game_state():
 
     def check_requirements(self, json):
         #BRANDOM THIS CODE IS GOLD NO FIXERINO
-        print(json)
         for thing in json.keys():
-            print thing
             if thing in self.attributes:
                 delta = json[thing]
                 sign = delta[0]
@@ -79,8 +75,6 @@ class game_state():
                     value = int(delta[2:])
                 else:
                     value = int(delta[1:])
-                print(value)
-                print(sign)
                 if sign == '<':
                     if thing == 'rapport':
                         if self.rapport >= value:
@@ -133,6 +127,10 @@ class game_state():
                     elif thing == 'sad':
                         if self.sad < value:
                             return False
+            if thing == "nodes":
+                for node in json[thing]:
+                    if node not in self.visited:
+                        return False
         return True
 
     def convert_response(self, response):

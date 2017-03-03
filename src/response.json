@@ -23,6 +23,7 @@
     "REFUSAL_REPLY" : "I need the money. I cannot afford these bills currently.",
     "WHY_HAVE_MEDICAL_REPLY" : "My wife was in the hospital.",
     "WHY_WIFE_SICK_REPLY" : "She had terminal cancer.",
+    "EMPATHY_TREE_REPLY" : "I miss her so much",
     "EMPATHY_REPLY" : "You do not understand how I feel.",
     "HAD_CANCER_REPLY" : "Yes, she had cancer, she did not make it.", 
     "OTHER_REPLY" : "Quit playing around with me.",
@@ -32,6 +33,6 @@
     "AMMO_REPLY" : "I am loaded.",
     "HOW_MUCH_TAKEN_REPLY" : "Why would it matter have I taken?",
     "HOW_MUCH_MONEY_REPLY" : "Quarter of a million dollars.",
-    "GREETINGS_REPLY" : "Hello."
-    
+    "GREETINGS_REPLY" : "Hello.",
+    "SHE_NO_WANT_REPLY" : "You're right man, I shouldn't be doing this. I'll come out"
 }
