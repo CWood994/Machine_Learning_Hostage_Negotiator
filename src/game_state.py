@@ -64,10 +64,9 @@ class game_state():
 
 
     def check_requirements(self, json):
-        #BRANDOM THIS CODE IS GOLD NO FIXERINO
-        for thing in json.keys():
-            if thing in self.attributes:
-                delta = json[thing]
+        for requirement in json.keys():
+            if requirement in self.attributes:
+                delta = json[requirement]
                 sign = delta[0]
                 value = 0
                 if delta[1] == '=':
@@ -76,59 +75,19 @@ class game_state():
                 else:
                     value = int(delta[1:])
                 if sign == '<':
-                    if thing == 'rapport':
-                        if self.rapport >= value:
-                            return False
-                    elif thing == 'anger':
-                        if self.anger >= value:
-                            return False
-                    elif thing == 'fear':
-                        if self.fear >= value:
-                            return False
-                    elif thing == 'sad':
-                        if self.sad >= value:
-                            return False
+                    if getattr(self, requirement) >= value:
+                        return False
                 elif sign == '<=':
-                    if thing == 'rapport':
-                        if self.rapport > value:
-                            return False
-                    elif thing == 'anger':
-                        if self.anger > value:
-                            return False
-                    elif thing == 'fear':
-                        if self.fear > value:
-                            return False
-                    elif thing == 'sad':
-                        if self.sad > value:
-                            return False
+                    if getattr(self, requirement) > value:
+                        return False
                 elif sign == '>':
-                    if thing == 'rapport':
-                        if self.rapport <= value:
-                            return False
-                    elif thing == 'anger':
-                        if self.anger <= value:
-                            return False
-                    elif thing == 'fear':
-                        if self.fear <= value:
-                            return False
-                    elif thing == 'sad':
-                        if self.sad <= value:
-                            return False
+                    if getattr(self, requirement) <= value:
+                        return False
                 elif sign == '>=':
-                    if thing == 'rapport':
-                        if self.rapport < value:
-                            return False
-                    elif thing == 'anger':
-                        if self.anger < value:
-                            return False
-                    elif thing == 'fear':
-                        if self.fear < value:
-                            return False
-                    elif thing == 'sad':
-                        if self.sad < value:
-                            return False
-            if thing == "nodes":
-                for node in json[thing]:
+                    if getattr(self, requirement) < value:
+                        return False
+            if requirement == "nodes":
+                for node in json[requirement]:
                     if node not in self.visited:
                         return False
         return True
