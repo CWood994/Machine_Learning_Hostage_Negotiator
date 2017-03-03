@@ -294,7 +294,7 @@
         {
             "nodes":["EMPATHY_TREE_1"],
             "terminal":"yes",
-            "response": "EMPATHY_REPLY",
+            "response": "SHE_NO_WANT_REPLY",
             "effects": ["rapport:+1", "anger:-1"]
         }
         ]

@@ -61,7 +61,21 @@ class utils():
             pass
         return answer
 
+    def hostageTakerVoice(self, text):
+        try:
+            with open(join(dirname(__file__), 'output.wav'), 'wrb') as audio_file:
+                output = self.text_to_speech.synthesize(text, accept='audio/wav', voice="en-US_MichaelVoice")
+                audio_file.write(output)
+
+        #Ignore audio problems if they exist instead of
+        #interrupting the user
+        except:
+            pass
+
+        self.play_wav("output.wav")
+
     #Play an audio file
+    #todo: this has output.wav hardcoded but takes a param filename...lol
     def play_wav(self, filename):
         try:
             with open(join(dirname(__file__), filename), 'rb') as audio_file:

@@ -29,6 +29,7 @@ class hnsGame(Widget):
         NLC_class = self.utils.nlc_classify_top_result(text)
         self.ids['mainImage'].source = "hostage_1.jpg"
         response = self.game_state.move_state(NLC_class)
+        self.utils.hostageTakerVoice(response)
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
 
     def rr_process(self, text):
