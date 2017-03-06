@@ -6,7 +6,7 @@ class game_state():
         self.situation = situation
         self.response = response
         self.init_situation()
-        self.visited = []
+        self.visited = set()
         self.isTerminal = False
 
     def init_situation(self):
@@ -48,13 +48,13 @@ class game_state():
                                     self.fear = self.fear + int(array[1])
                         if "terminal" in requirements:
                             self.isTerminal = True
-
                         try:
                             response = self.convert_response(requirements["response"])
                         except:
                             print "ERROR: reponse not found for: " + requirements["response"]
                             response = "You're giving me a headache!"
-                        self.visited.append(node["name"])
+                        self.visited.add(requirements["name"])
+                        print "Appended "+str(requirements["name"])
                         return response
 
                         
