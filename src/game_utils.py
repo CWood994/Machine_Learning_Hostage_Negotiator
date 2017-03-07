@@ -52,7 +52,7 @@ class utils():
         #print newText in the Gui
 
         try:
-            with open(join(dirname(__file__), 'output.wav'), 'wrb') as audio_file:
+            with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
                 output = self.text_to_speech.synthesize(answer, accept='audio/wav', voice="en-US_MichaelVoice")
                 audio_file.write(output)
         #Ignore audio problems if they exist instead of
@@ -63,7 +63,7 @@ class utils():
 
     def hostageTakerVoice(self, text):
         try:
-            with open(join(dirname(__file__), 'output.wav'), 'wrb') as audio_file:
+            with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
                 output = self.text_to_speech.synthesize(text, accept='audio/wav', voice="en-US_MichaelVoice")
                 audio_file.write(output)
 
@@ -84,6 +84,8 @@ class utils():
                 elif platform == "win32":
                     Popen(["sox", 'output.wav', '-t', 'waveaudio'], shell = True)
         except:
+            #e = sys.exc_info()[0]
+            #print "something went wrong " +  str(e)
             pass
 
     #Read in the user input and feed to R&R if Watson
