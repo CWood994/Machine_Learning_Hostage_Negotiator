@@ -26,6 +26,7 @@ from game_state import game_state
 Builder.load_string("""
 <GameScreen>: 
 	BoxLayout:
+		orientation: 'vertical'
 		canvas:
 		Image:
 			id: mainImage
@@ -83,11 +84,15 @@ Builder.load_string("""
         
 <MenuScreen>:
     BoxLayout:
+		orientation: 'vertical'
         Button:
             text: 'Goto game'
             on_press: root.manager.current = 'game'
         Button:
             text: 'Quit'
+            on_press: root.quit()
+        Button:
+			text: 'Settings'
 			
 
 
@@ -105,7 +110,7 @@ class GameScreen(Screen):
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
         self.ids['mainImage'].source = "hostage_1.jpg"
-        response = self.game_state.move_state(NLC_class)
+        response = self.game_state.move_state(NLC_class, text)
         self.utils.hostageTakerVoice(response)
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
 
@@ -128,6 +133,9 @@ class GameScreen(Screen):
         self.ids['textInput'].text =  text
         if self.game_state.isTerminal == True:
             print "gameEnded"
+            
+	def quit(self):
+		 sys.exit(0)
             
 		
 class MenuScreen(Screen):
