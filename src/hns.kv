@@ -1,6 +1,6 @@
 #:kivy 1.0.9
 
-<hnsGame>:    
+<GameScreen>:    
     canvas:
 
 
@@ -57,3 +57,12 @@
         on_focus: True
         on_text_validate: root.user_input(self.text)
         use_bubble: True
+        
+<MenuScreen>:
+    BoxLayout:
+        Button:
+            text: 'Goto settings'
+            on_press: root.manager.current = 'settings'
+        Button:
+            text: 'Quit'
+			

@@ -6,10 +6,15 @@ from kivy.graphics import *
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
 from kivy.graphics.texture import *
+from kivy.uix.screenmanager import ScreenManager, Screen
 import json, sys, re
 from os.path import join, dirname
 from subprocess import Popen
 from sys import platform
+from kivy.uix.boxlayout import *
+from kivy.uix.button import *
+from kivy.app import App
+from kivy.lang import Builder
 
 from game_utils import utils
 from game_state import game_state
@@ -17,13 +22,85 @@ from game_state import game_state
 #This is the games main widget.
 #TODO make another widget to float ontop as an ingame menu or add
 # navigation tools somewhere in this widget
-class hnsGame(Widget):
+
+Builder.load_string("""
+<GameScreen>: 
+	BoxLayout:
+		canvas:
+		Image:
+			id: mainImage
+			pos: 0, self.height + 60
+			height: root.height/2 - 30
+			width: root.width
+			source: 'hostage_1.jpg'
+
+		ScrollView:
+			id: scrollid
+			left: root.width / 2 
+			right: root.width 
+			height: (root.height / 4) * 2
+			width: root.width / 2 
+			center_x: root.width * 3 / 4
+			center_y: root.height / 4 + 30
+			Label:
+				id: wattext
+				height: self.texture_size[1]
+				size_hint_y: None
+				valign: 'top'
+				padding: 5, 5
+				text_size: self.width, None
+				text: "Watson: "
+
+		ScrollView:
+			id: scrollidLeft
+			left: 0
+			right: root.width/2 
+			height: (root.height / 4) * 2
+			width: root.width / 2 
+			center_x: root.width / 4
+			center_y: root.height / 4 + 30
+			Label:
+				id: wattext
+				height: self.texture_size[1]
+				size_hint_y: None
+				valign: 'top'
+				padding: 5, 5
+				text_size: self.width, None
+				text: "Hostage Taker: "
+			
+		
+		TextInput:
+			id: textInput
+			text: 'Enter your query here'
+			bottom: 0
+			width: root.width
+			scroll_x: 0
+			height: 30
+			multiline: False
+			on_focus: True
+			on_text_validate: root.user_input(self.text)
+			use_bubble: True
+        
+<MenuScreen>:
+    BoxLayout:
+        Button:
+            text: 'Goto game'
+            on_press: root.manager.current = 'game'
+        Button:
+            text: 'Quit'
+			
+
+
+
+""")
+class GameScreen(Screen):
 
     def __init__(self):
-        super(hnsGame, self).__init__()
+        super(GameScreen, self).__init__()
         self.game_state = game_state("nlc.json", "response.json")
         start_text = self.game_state.start() #TODO: implement start intro thing
         self.utils = utils()
+        self.name = 'game'
 
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
@@ -51,10 +128,19 @@ class hnsGame(Widget):
         self.ids['textInput'].text =  text
         if self.game_state.isTerminal == True:
             print "gameEnded"
+            
+		
+class MenuScreen(Screen):
+	pass
+	
+	
+sm = ScreenManager()
+sm.add_widget(MenuScreen(name='menu'))
+sm.add_widget(GameScreen())
 
 class hnsApp(App):
     def build(self):
-        return hnsGame()
+		return sm
         
-if __name__ == '__main__':
-    hnsApp().run()
+
+hnsApp().run()
