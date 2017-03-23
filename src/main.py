@@ -28,7 +28,7 @@ class hnsGame(Widget):
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
         self.ids['mainImage'].source = "hostage_1.jpg"
-        response = self.game_state.move_state(NLC_class)
+        response = self.game_state.move_state(NLC_class, text)
         self.utils.hostageTakerVoice(response)
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
 
@@ -50,7 +50,8 @@ class hnsGame(Widget):
             self.hostage_taker_query(text)
         self.ids['textInput'].text =  text
         if self.game_state.isTerminal == True:
-            print "gameEnded"
+            for string in self.game_state.log:
+                print string
 
 class hnsApp(App):
     def build(self):
