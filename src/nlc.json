@@ -45,7 +45,7 @@
         [
             {
                 "name": "RELEASE_All_HOSTAGES_1",
-                "response": "RELEASE_All_HOSTAGES_REPLY"
+                "response": "RELEASE_All_HOSTAGES_REPLY",
                 "effects": ["anger:+1"]
             }
         ]
