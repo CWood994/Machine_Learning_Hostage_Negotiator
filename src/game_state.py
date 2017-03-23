@@ -8,6 +8,7 @@ class game_state():
         self.init_situation()
         self.visited = set()
         self.isTerminal = False
+        self.log = []
 
     def init_situation(self):
         json_data_sit=open(self.situation).read()
@@ -26,35 +27,42 @@ class game_state():
         #todo: add start node to nlc and read that
         return "starting intro: man robbing"
 
-    def move_state(self, NLC_CLASS):
+    def move_state(self, NLC_CLASS, text):
         print NLC_CLASS #BRANDON, DONT DELETE THIS LINE! BITCH :)
 
         for node in self.situation:
             if node["nlc_class"] == NLC_CLASS:
                 for requirements in node["requirements"]:
                     if self.check_requirements(requirements):
+                        log_text = text + " -> " + NLC_CLASS
                         if 'effects' in requirements.keys():
                             for effect in requirements['effects']:
                                 print(effect)
                                 array = effect.split(":")
                                 #todo: adjust effects if this all of this is true...
                                 if array[0] == 'rapport':
+                                    log_text += "\n\tRapport: " + str(self.rapport)  + " " + array[1] 
                                     self.rapport = int(array[1]) + self.rapport
                                 elif array[0] == 'sad':
+                                    log_text += "\n\tSad: " + str(self.sad)  + " " + array[1] 
                                     self.sad = self.sad + int(array[1])
                                 elif array[0] == 'anger':
+                                    log_text += "\n\tAnger: " + str(self.anger)  + " " + array[1] 
                                     self.anger = self.anger + int(array[1])
                                 elif array[0] == 'fear':
+                                    log_text += "\n\tFear: " + str(self.fear)  + " " + array[1] 
                                     self.fear = self.fear + int(array[1])
+                        self.log.append(log_text)
                         if "terminal" in requirements:
+                            self.log.append("GAME_OVER")
                             self.isTerminal = True
+
                         try:
                             response = self.convert_response(requirements["response"])
                         except:
                             print "ERROR: reponse not found for: " + requirements["response"]
                             response = "You're giving me a headache!"
                         self.visited.add(requirements["name"])
-                        print "Appended "+str(requirements["name"])
                         return response
 
                         
