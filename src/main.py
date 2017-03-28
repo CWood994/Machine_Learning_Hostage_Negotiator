@@ -132,6 +132,8 @@ class GameScreen(Screen):
             self.hostage_taker_query(text)
         self.ids['textInput'].text =  text
         if self.game_state.isTerminal == True:
+            for s in self.game_state.log
+                print s 
             print "gameEnded"
             
 	def quit(self):
