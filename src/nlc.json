@@ -183,7 +183,7 @@
             {
                 "name": "VENT_1",
                 "response": "VENT_REPLY",
-                "effects": ["anger:-1" "rapport:-1"]
+                "effects": ["anger:-1", "rapport:-1"]
             }
         ]
     },
