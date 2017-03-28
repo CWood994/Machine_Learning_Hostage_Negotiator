@@ -7,6 +7,8 @@ from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
 from kivy.graphics.texture import *
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.dropdown import DropDown
+from kivy.uix.spinner import Spinner
 import json, sys, re
 from os.path import join, dirname
 from subprocess import Popen
@@ -22,6 +24,9 @@ from game_state import game_state
 #This is the games main widget.
 #TODO make another widget to float ontop as an ingame menu or add
 # navigation tools somewhere in this widget
+
+from kivy.config import Config
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
 Builder.load_string("""
 <GameScreen>: 
@@ -85,18 +90,26 @@ Builder.load_string("""
 <MenuScreen>:
     BoxLayout:
 		orientation: 'vertical'
+		Image:
+			id: menuImage
+			size_hint_y: 0.5
+			source: 'police_car.gif'
+			allow_stretch: True
+			anim_delay: 0.1
         Button:
             text: 'Goto game'
             on_press: root.manager.current = 'game'
-        Button:
-            text: 'Quit'
-            on_press: root.quit()
-        Button:
-			text: 'Settings'
-			
-
-
-
+		Spinner:
+			size_hint: 0.5, None
+			text: "Scenario Select"
+			values: 'scene1', 'scene2', 'scene3'
+			size_hint: None, None
+		Button:
+            id: btnExit
+			text: "Exit"
+			on_press: app.stop()
+			size_hint_y: 0.25
+<AfterActionScreen>:
 """)
 class GameScreen(Screen):
 
@@ -136,17 +149,26 @@ class GameScreen(Screen):
                 print s 
             print "gameEnded"
             
-	def quit(self):
-		 sys.exit(0)
-            
 		
 class MenuScreen(Screen):
 	pass
+	
+class CustomDropDown(DropDown):
+	pass
+	
+class AfterActionScreen(Screen):
+	pass
+	
+dropdown = CustomDropDown()
+mainbutton = Button(text='Hello', size_hint=(None, None))
+mainbutton.bind(on_release=dropdown.open)
+dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
 	
 	
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(GameScreen())
+sm.add_widget(AfterActionScreen(name='afteraction'))
 
 class hnsApp(App):
     def build(self):

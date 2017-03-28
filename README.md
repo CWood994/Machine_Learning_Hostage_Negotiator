@@ -8,3 +8,6 @@ CI is provided by wercker which can be reached with the status icon above.
 
 ## Dependencies
 - kivy
+
+## Running
+In order to run this project, cd into the `src` folder and run `python2 main.py`

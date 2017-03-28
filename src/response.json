@@ -4,7 +4,7 @@
     "ASK_NAME_REPLY" : "My name is Brandon.",
     "ASSERT_AUTHORITY_REPLY" : "Good, you can help me then.",
     "RELEASE_All_HOSTAGES_REPLY" : "I am not releasing anyone until I get my money.",
-    "ASK_INTENTIONS_REPLY_2" : "I am having a bad day and have ran out of options.",
+    "ASK_INTENTIONS_REPLY_2" : "I am having a bad day and have run out of options.",
     "ASK_INTENTIONS_REPLY" : "I need money.",
     "ASSURE_SAFETY_LOW_REPLY" : "I don't believe you. I need to know I will not be harmed.",
     "ASSURE_SAFETY_HIGH_REPLY" : "Are you sure? You seem honest but I have my doubts.",
@@ -35,5 +35,6 @@
     "HOW_MUCH_MONEY_REPLY" : "Quarter of a million dollars.",
     "GREETINGS_REPLY" : "Hello.",
     "SHE_NO_WANT_REPLY" : "You're right man, I shouldn't be doing this. I'll come out",
-    "THREATEN_REPLY" : "I ain't scared of you"
+    "THREATEN_REPLY" : "I ain't scared of you",
+    "HOW_ARE_YOU_REPLY" : "I ain't scared of you"
 }
