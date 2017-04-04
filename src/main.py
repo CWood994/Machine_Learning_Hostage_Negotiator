@@ -206,10 +206,11 @@ class CustomDropDown(DropDown):
     pass
     
 class AfterActionScreen(Screen):
-    def printStats(self, text):
+    @staticmethod
+    def printStats(text):
         for s in text:
             print s 
-        self.ids["aatext"].text = self.game_state.log
+        AfterActionScreen.ids["aatext"].text = text
     
 class HelpScreen(Screen):
     pass
