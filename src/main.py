@@ -109,20 +109,20 @@ Builder.load_string("""
             text: 'Goto game'
             on_press: root.manager.current = 'game'
         BoxLayout:
-            orientation: 'horizontal'
-            Spinner:
-                id: sceneselect
-                size: root.height/4, root.width/4
-                text: "Scenario Select"
-                values: 'scene1', 'scene2', 'scene3'
-                size_hint: None, None
-            Button:
-                text: "Learn to Play"
-                on_press: root.manager.current = 'help'
-            Button:
-                id: btnExit
-                text: "Exit"
-                on_press: app.stop()
+			orientation: 'horizontal'
+			Spinner:
+				id: sceneselect
+				size: root.height/4, root.width/4
+				text: "Scenario Select"
+				values: 'Jewelry Store Heist', 'None'
+				size_hint: None, None
+			Button:
+				text: "Learn to Play"
+				on_press: root.manager.current = 'help'
+			Button:
+				id: btnExit
+				text: "Exit"
+				on_press: app.stop()
 <AfterActionScreen>:
     BoxLayout:
         orientation: 'vertical'
@@ -147,14 +147,14 @@ Builder.load_string("""
                 text_size: self.width, None
                 text: "After Action report: "
 <HelpScreen>
-    BoxLayout:
-        orientation: 'vertical'
-        Button:
-            size_hint_y: 0.25
-            text: 'Goto menu'
-            on_press: root.manager.current = 'menu'
-        Label:
-            text: "Tutorial text here: "
+	BoxLayout:
+		orientation: 'vertical'
+		Button:
+			size_hint_y: 0.25
+			text: 'Goto menu'
+			on_press: root.manager.current = 'menu'
+		Label:
+			text: "Tutorial"
 """)
 class GameScreen(Screen):
 
@@ -194,7 +194,7 @@ class GameScreen(Screen):
             self.rr_process(self.utils.cleanse_rr_string(text))
         else:
             self.hostage_taker_query(text)
-        self.ids['textInput'].text =  text
+        self.ids['textInput'].text =  ''
         if self.game_state.isTerminal == True:
             self.gameEnded()
             
