@@ -9,8 +9,9 @@ from sys import platform
 
 class utils():
 
-    def __init__(self):
+    def __init__(self, gameState):
         self.init_services()
+        self.gameState = gameState
         #regular expression identifier for text that goes to R&R
         self.rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
 
@@ -51,9 +52,18 @@ class utils():
         answer = self.rr_query_first_result(text)
         #print newText in the Gui
 
+        if answer == "STATS":
+            status = "an OKAY"
+            if self.gameState.rapport < 5 or self.gameState.anger > 7 or self.gameState.sad > 7 or self.gameState.fear > 7:
+                status = "a BAD"
+            if self.gameState.rapport > 6 and self.gameState.anger < 6 and self.gameState.sad < 6 and self.gameState.fear < 6:
+                status = "a GOOD" 
+            answer = "According to facial analysis, the hostage taker currently is at:\n    Rapport: " + str(self.gameState.rapport) + "\n    Anger: " + str(self.gameState.anger) + "\n    Sad: " + str(self.gameState.sad) + "\n    Fear: " + str(self.gameState.fear) + "\n\nIt appears that you are doing " + status + " job!"
+
+
         try:
             with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
-                output = self.text_to_speech.synthesize(answer, accept='audio/wav', voice="en-US_MichaelVoice")
+                output = self.text_to_speech.synthesize(answer, accept='audio/wav', voice="en-GB_KateVoice")
                 audio_file.write(output)
         #Ignore audio problems if they exist instead of
         #interrupting the user

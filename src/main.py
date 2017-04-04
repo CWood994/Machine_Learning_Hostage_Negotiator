@@ -30,131 +30,131 @@ Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
 Builder.load_string("""
 <GameScreen>: 
-	BoxLayout:
-		orientation: 'vertical'
-		BoxLayout:
-			canvas:
-			Button:
-				size_hint_x: 0.5
-				text: 'Goto menu'
-				on_press: root.manager.current = 'menu'
-			Image:
-				id: mainImage
-				pos: 0, self.height + 60
-				height: root.height/2 - 30
-				size_hint_x: 1
-				source: 'hostage_1.jpg'
-			Button:
-				id: aabutton
-				size_hint_x: 0.5
-				text: 'End Scenario'
-				on_press: root.manager.current = 'afteraction'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            canvas:
+            Button:
+                size_hint_x: 0.5
+                text: 'Goto menu'
+                on_press: root.manager.current = 'menu'
+            Image:
+                id: mainImage
+                pos: 0, self.height + 60
+                height: root.height/2 - 30
+                size_hint_x: 1
+                source: 'hostage_1.jpg'
+            Button:
+                id: aabutton
+                size_hint_x: 0.5
+                text: 'End Scenario'
+                on_press: root.manager.current = 'afteraction', root.gameEnded()
 
-		ScrollView:
-			id: scrollid
-			left: root.width / 2 
-			right: root.width 
-			height: (root.height / 4) * 2
-			width: root.width / 2 
-			center_x: root.width * 3 / 4
-			center_y: root.height / 4 + 30
-			Label:
-				id: wattext
-				height: self.texture_size[1]
-				size_hint_y: None
-				valign: 'top'
-				padding: 5, 5
-				text_size: self.width, None
-				text: "Watson: "
+        ScrollView:
+            id: scrollid
+            left: root.width / 2 
+            right: root.width 
+            height: (root.height / 4) * 2
+            width: root.width / 2 
+            center_x: root.width * 3 / 4
+            center_y: root.height / 4 + 30
+            Label:
+                id: wattext
+                height: self.texture_size[1]
+                size_hint_y: None
+                valign: 'top'
+                padding: 5, 5
+                text_size: self.width, None
+                text: "Watson: "
 
-		ScrollView:
-			id: scrollidLeft
-			left: 0
-			right: root.width/2 
-			height: (root.height / 4) * 2
-			width: root.width / 2 
-			center_x: root.width / 4
-			center_y: root.height / 4 + 30
-			Label:
-				id: wattext
-				height: self.texture_size[1]
-				size_hint_y: None
-				valign: 'top'
-				padding: 5, 5
-				text_size: self.width, None
-				text: "Hostage Taker: "
-			
-		
-		TextInput:
-			id: textInput
-			text: 'Enter your query here'
-			bottom: 0
-			width: root.width
-			scroll_x: 0
-			height: 30
-			multiline: False
-			on_focus: True
-			on_text_validate: root.user_input(self.text)
-			use_bubble: True
+        ScrollView:
+            id: scrollidLeft
+            left: 0
+            right: root.width/2 
+            height: (root.height / 4) * 2
+            width: root.width / 2 
+            center_x: root.width / 4
+            center_y: root.height / 4 + 30
+            Label:
+                id: wattext
+                height: self.texture_size[1]
+                size_hint_y: None
+                valign: 'top'
+                padding: 5, 5
+                text_size: self.width, None
+                text: "Hostage Taker: "
+            
+        
+        TextInput:
+            id: textInput
+            text: 'Enter your query here'
+            bottom: 0
+            width: root.width
+            scroll_x: 0
+            height: 30
+            multiline: False
+            on_focus: True
+            on_text_validate: root.user_input(self.text)
+            use_bubble: True
         
 <MenuScreen>:
     BoxLayout:
-		orientation: 'vertical'
-		Image:
-			id: menuImage
-			source: 'police_car.gif'
-			allow_stretch: True
-			anim_delay: 0.1
+        orientation: 'vertical'
+        Image:
+            id: menuImage
+            source: 'police_car.gif'
+            allow_stretch: True
+            anim_delay: 0.1
         Button:
             text: 'Goto game'
             on_press: root.manager.current = 'game'
         BoxLayout:
-			orientation: 'horizontal'
-			Spinner:
-				id: sceneselect
-				size: root.height/4, root.width/4
-				text: "Scenario Select"
-				values: 'scene1', 'scene2', 'scene3'
-				size_hint: None, None
-			Button:
-				text: "Learn to Play"
-				on_press: root.manager.current = 'help'
-			Button:
-				id: btnExit
-				text: "Exit"
-				on_press: app.stop()
+            orientation: 'horizontal'
+            Spinner:
+                id: sceneselect
+                size: root.height/4, root.width/4
+                text: "Scenario Select"
+                values: 'scene1', 'scene2', 'scene3'
+                size_hint: None, None
+            Button:
+                text: "Learn to Play"
+                on_press: root.manager.current = 'help'
+            Button:
+                id: btnExit
+                text: "Exit"
+                on_press: app.stop()
 <AfterActionScreen>:
-	BoxLayout:
-		orientation: 'vertical'
-		BoxLayout:
-			orientation: 'horizontal'
-			size_hint_y: 0.25
-			Button:
-				text: 'Goto menu'
-				on_press: root.manager.current = 'menu'
-			Button: 
-				text: 'Quit'
-				on_press: app.stop()
-		ScrollView:
-			id: aascrollview
-			left: 0
-			Label:
-				id: aatext
-				height: self.texture_size[1]
-				size_hint_y: None
-				valign: 'top'
-				padding: 5, 5
-				text_size: self.width, None
-				text: "After Action report: "
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: 'Goto menu'
+                on_press: root.manager.current = 'menu'
+            Button: 
+                text: 'Quit'
+                on_press: app.stop()
+        ScrollView:
+            id: aascrollview
+            left: 0
+            Label:
+                id: aatext
+                height: self.texture_size[1]
+                size_hint_y: None
+                valign: 'top'
+                padding: 5, 5
+                text_size: self.width, None
+                text: "After Action report: "
 <HelpScreen>
-	BoxLayout:
-		orientation: 'vertical'
-		Button:
-			size_hint_y: 0.25
-			text: 'Goto menu'
-			on_press: root.manager.current = 'menu'
-		Label:
-			text: "Tutorial text here: "
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            size_hint_y: 0.25
+            text: 'Goto menu'
+            on_press: root.manager.current = 'menu'
+        Label:
+            text: "Tutorial text here: "
 """)
 class GameScreen(Screen):
 
@@ -162,7 +162,7 @@ class GameScreen(Screen):
         super(GameScreen, self).__init__()
         self.game_state = game_state("nlc.json", "response.json")
         start_text = self.game_state.start() #TODO: implement start intro thing
-        self.utils = utils()
+        self.utils = utils(self.game_state)
         self.name = 'game'
 
     def hostage_taker_query(self, text):
@@ -180,8 +180,11 @@ class GameScreen(Screen):
         #play the audio if it exists
         self.utils.play_wav('output.wav')
         
+    def gameEnded(self):
+        AfterActionScreen.printStats(self.game_state.log)
+
     def change_scenario(self):
-		self.game_state = game_state("nlc.json", "response.json")
+        self.game_state = game_state("nlc.json", "response.json")
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
@@ -193,29 +196,30 @@ class GameScreen(Screen):
             self.hostage_taker_query(text)
         self.ids['textInput'].text =  text
         if self.game_state.isTerminal == True:
-            for s in self.game_state.log:
-                print s 
-            print "gameEnded"
+            self.gameEnded()
             
-		
+        
 class MenuScreen(Screen):
-	pass
-	
+    pass
+    
 class CustomDropDown(DropDown):
-	pass
-	
+    pass
+    
 class AfterActionScreen(Screen):
-	pass
-	
+    def printStats(self, text):
+        for s in text:
+            print s 
+        self.ids["aatext"].text = self.game_state.log
+    
 class HelpScreen(Screen):
-	pass
-	
+    pass
+    
 dropdown = CustomDropDown()
 mainbutton = Button(text='Hello', size_hint=(None, None))
 mainbutton.bind(on_release=dropdown.open)
 dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
-	
-	
+    
+    
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(GameScreen())
@@ -224,7 +228,7 @@ sm.add_widget(AfterActionScreen(name='afteraction'))
 
 class hnsApp(App):
     def build(self):
-		return sm
+        return sm
         
 
 hnsApp().run()
