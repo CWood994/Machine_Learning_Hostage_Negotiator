@@ -114,7 +114,7 @@ Builder.load_string("""
 				id: sceneselect
 				size: root.height/4, root.width/4
 				text: "Scenario Select"
-				values: 'scene1', 'scene2', 'scene3'
+				values: 'Jewelry Store Heist', 'None'
 				size_hint: None, None
 			Button:
 				text: "Learn to Play"
@@ -154,7 +154,7 @@ Builder.load_string("""
 			text: 'Goto menu'
 			on_press: root.manager.current = 'menu'
 		Label:
-			text: "Tutorial text here: "
+			text: "Tutorial"
 """)
 class GameScreen(Screen):
 
@@ -179,9 +179,6 @@ class GameScreen(Screen):
         self.ids['scrollid'].children[0].text = "Watson: " + answer
         #play the audio if it exists
         self.utils.play_wav('output.wav')
-        
-    def change_scenario(self):
-		self.game_state = game_state("nlc.json", "response.json")
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
@@ -191,7 +188,7 @@ class GameScreen(Screen):
             self.rr_process(self.utils.cleanse_rr_string(text))
         else:
             self.hostage_taker_query(text)
-        self.ids['textInput'].text =  text
+        self.ids['textInput'].text =  ''
         if self.game_state.isTerminal == True:
             for s in self.game_state.log:
                 print s 
