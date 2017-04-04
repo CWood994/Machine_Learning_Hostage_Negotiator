@@ -32,13 +32,23 @@ Builder.load_string("""
 <GameScreen>: 
 	BoxLayout:
 		orientation: 'vertical'
-		canvas:
-		Image:
-			id: mainImage
-			pos: 0, self.height + 60
-			height: root.height/2 - 30
-			width: root.width
-			source: 'hostage_1.jpg'
+		BoxLayout:
+			canvas:
+			Button:
+				size_hint_x: 0.5
+				text: 'Goto menu'
+				on_press: root.manager.current = 'menu'
+			Image:
+				id: mainImage
+				pos: 0, self.height + 60
+				height: root.height/2 - 30
+				size_hint_x: 1
+				source: 'hostage_1.jpg'
+			Button:
+				id: aabutton
+				size_hint_x: 0.5
+				text: 'End Scenario'
+				on_press: root.manager.current = 'afteraction'
 
 		ScrollView:
 			id: scrollid
@@ -92,24 +102,59 @@ Builder.load_string("""
 		orientation: 'vertical'
 		Image:
 			id: menuImage
-			size_hint_y: 0.5
 			source: 'police_car.gif'
 			allow_stretch: True
 			anim_delay: 0.1
         Button:
             text: 'Goto game'
             on_press: root.manager.current = 'game'
-		Spinner:
-			size_hint: 0.5, None
-			text: "Scenario Select"
-			values: 'scene1', 'scene2', 'scene3'
-			size_hint: None, None
-		Button:
-            id: btnExit
-			text: "Exit"
-			on_press: app.stop()
-			size_hint_y: 0.25
+        BoxLayout:
+			orientation: 'horizontal'
+			Spinner:
+				id: sceneselect
+				size: root.height/4, root.width/4
+				text: "Scenario Select"
+				values: 'scene1', 'scene2', 'scene3'
+				size_hint: None, None
+			Button:
+				text: "Learn to Play"
+				on_press: root.manager.current = 'help'
+			Button:
+				id: btnExit
+				text: "Exit"
+				on_press: app.stop()
 <AfterActionScreen>:
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint_y: 0.25
+			Button:
+				text: 'Goto menu'
+				on_press: root.manager.current = 'menu'
+			Button: 
+				text: 'Quit'
+				on_press: app.stop()
+		ScrollView:
+			id: aascrollview
+			left: 0
+			Label:
+				id: aatext
+				height: self.texture_size[1]
+				size_hint_y: None
+				valign: 'top'
+				padding: 5, 5
+				text_size: self.width, None
+				text: "After Action report: "
+<HelpScreen>
+	BoxLayout:
+		orientation: 'vertical'
+		Button:
+			size_hint_y: 0.25
+			text: 'Goto menu'
+			on_press: root.manager.current = 'menu'
+		Label:
+			text: "Tutorial text here: "
 """)
 class GameScreen(Screen):
 
@@ -134,6 +179,9 @@ class GameScreen(Screen):
         self.ids['scrollid'].children[0].text = "Watson: " + answer
         #play the audio if it exists
         self.utils.play_wav('output.wav')
+        
+    def change_scenario(self):
+		self.game_state = game_state("nlc.json", "response.json")
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
@@ -145,7 +193,7 @@ class GameScreen(Screen):
             self.hostage_taker_query(text)
         self.ids['textInput'].text =  text
         if self.game_state.isTerminal == True:
-            for s in self.game_state.log
+            for s in self.game_state.log:
                 print s 
             print "gameEnded"
             
@@ -159,6 +207,9 @@ class CustomDropDown(DropDown):
 class AfterActionScreen(Screen):
 	pass
 	
+class HelpScreen(Screen):
+	pass
+	
 dropdown = CustomDropDown()
 mainbutton = Button(text='Hello', size_hint=(None, None))
 mainbutton.bind(on_release=dropdown.open)
@@ -168,6 +219,7 @@ dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(GameScreen())
+sm.add_widget(HelpScreen(name='help'))
 sm.add_widget(AfterActionScreen(name='afteraction'))
 
 class hnsApp(App):
