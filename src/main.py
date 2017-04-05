@@ -254,10 +254,10 @@ class GameScreen(Screen):
                 self.ids["aabutton"].text = "AARP"
                 self.ids["textInput"].text = "Game Over! Proceed to AARP"
                 self.ids["textInput"].on_focus = "False"
+                self.gameEnded()
         else:
             self.ids["textInput"].text = "Game Over! Proceed to AARP"
             self.ids["textInput"].on_focus = "False"
-            self.gameEnded()
 
                
 class MenuScreen(Screen):
