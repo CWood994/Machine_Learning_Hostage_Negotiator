@@ -251,7 +251,7 @@ class MenuScreen(Screen):
         if self.ids["sceneselect"].text != "Scenario Select":
             scenarioDir =  os.listdir("json/"+self.ids["sceneselect"].text)
             scenarioDir.remove("nlc.json")
-            GS.changeGame("nlc.json", scenarioDir[(randint(0,len(scenarioDir)-1))])
+            GS.changeGame("json/"+self.ids["sceneselect"].text+"/nlc.json", "json/"+self.ids["sceneselect"].text+"/"+scenarioDir[(randint(0,len(scenarioDir)-1))])
             sm.current = 'game'
             thread.start_new_thread(GS.game_state.start,())
     
