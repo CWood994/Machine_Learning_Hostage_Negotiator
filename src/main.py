@@ -195,19 +195,23 @@ class GameScreen(Screen):
     def changeGame(self, nlc, response):
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: "
         self.ids['scrollid'].children[0].text = "Watson: "
+        self.ids['mainImage'].source = "police_car.gif"
         self.utils = utils()
         self.game_state = game_state(nlc, response, self.utils)
         self.utils.updateGameState( self.game_state)
 
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
-        self.ids['mainImage'].source = "hostage_1.jpg"
+        #self.ids['mainImage'].source = "hostage_1.jpg"
         response = self.game_state.move_state(NLC_class, text)
         self.utils.hostageTakerVoice(response)
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
 
     def rr_process(self, text):
-        self.ids['mainImage'].source = "watson_avatar.jpg"
+        print self.ids['mainImage'].source
+        print self.ids['mainImage']
+        print self.ids['mainImage'].source
+        #self.ids['mainImage'].source = "watson_avatar.jpg"
         answer = self.utils.rr_process(text)
         #print newText in the Gui
         self.ids['scrollid'].children[0].text = "Watson: " + answer
@@ -245,9 +249,13 @@ class GameScreen(Screen):
         if self.game_state.isTerminal == False:
             text = text.lower()
             if self.utils.isWatsonQuery(text):
-                self.rr_process(self.utils.cleanse_rr_string(text))
+                self.ids['mainImage'].source = "watson_avatar.jpg"
+                clean = self.utils.cleanse_rr_string(text)
+                thread.start_new_thread(self.rr_process, (clean,))
+                #self.rr_process(self.utils.cleanse_rr_string(text))
             else:
-                self.hostage_taker_query(text)
+                self.ids['mainImage'].source = "hostage_1.jpg"
+                thread.start_new_thread( self.hostage_taker_query, (text,))
             self.ids['textInput'].text =  ''
             if self.game_state.isTerminal == True:
                 print "GAMEOVER"
@@ -256,6 +264,8 @@ class GameScreen(Screen):
                 self.ids["textInput"].on_focus = "False"
                 self.gameEnded()
         else:
+            if self.finishedGame == False:
+                self.gameEnded()
             self.ids["textInput"].text = "Game Over! Proceed to AARP"
             self.ids["textInput"].on_focus = "False"
 

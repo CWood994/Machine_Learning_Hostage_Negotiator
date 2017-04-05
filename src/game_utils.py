@@ -52,21 +52,24 @@ class utils():
     #first_result and then uses text to speech to write a wav file with the
     #response text
     def rr_process(self, text, startTextHackSorry = ""):
+        print text
         answer = self.rr_query_first_result(text)
         #print newText in the Gui
-
+        print "in1"
         if answer == "STATS":
+            print "in1.2"
             status = "an OKAY"
             if self.gameState.rapport < 5 or self.gameState.anger > 7 or self.gameState.sad > 7 or self.gameState.fear > 7:
                 status = "a BAD"
             if self.gameState.rapport > 6 and self.gameState.anger < 6 and self.gameState.sad < 6 and self.gameState.fear < 6:
                 status = "a GOOD" 
             answer = "According to facial analysis, the hostage taker currently is at:\n    Rapport: " + str(self.gameState.rapport) + "\n    Anger: " + str(self.gameState.anger) + "\n    Sad: " + str(self.gameState.sad) + "\n    Fear: " + str(self.gameState.fear) + "\n\nIt appears that you are doing " + status + " job!"
-
+            print "in1.5"
         if startTextHackSorry != "":
             answer = startTextHackSorry
-
+        print "in2"
         try:
+            print "in3"
             with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
                 output = self.text_to_speech.synthesize(answer, accept='audio/wav', voice="en-GB_KateVoice")
                 audio_file.write(output)
@@ -74,6 +77,7 @@ class utils():
         #interrupting the user
         except:
             pass
+        print "out"
         return answer
 
     def hostageTakerVoice(self, text):
@@ -103,15 +107,6 @@ class utils():
             #print "something went wrong " +  str(e)
             pass
 
-    #Read in the user input and feed to R&R if Watson
-    #is mentioned, otherwise feed to the NLC
-    def user_input(self, text):
-        text = text.lower()
-        if self.isWatsonQuery(text):
-            self.rr_process(re.sub(self.rr_text_id,'',text, flags=re.IGNORECASE))
-        else:
-            self.hostage_taker_query(text)
-
     #Check if the input should go to RR based on the regular expression
     #rr_text_id
     def isWatsonQuery(self, text):
@@ -139,6 +134,7 @@ class utils():
 
     #runs rr_query and returns the first response body or a fallback result if empty
     def rr_query_first_result(self, text):
+        print "NOW\n\n"
         response = ''
         results = self.rr_query(text)
 
