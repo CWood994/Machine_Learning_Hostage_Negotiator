@@ -189,6 +189,7 @@ class GameScreen(Screen):
         super(GameScreen, self).__init__()
         global GS
         GS=self
+        self.finishedGame = False
         self.name = 'game'
 
     def changeGame(self, nlc, response):
@@ -214,27 +215,30 @@ class GameScreen(Screen):
         self.utils.play_wav('output.wav')
         
     def gameEnded(self):
-        self.game_state.log.append("\n\n\nFinal Stats:\n    Anger: " + str(self.game_state.anger) + "\n    Sad: " + str(self.game_state.sad) + "\n    Fear: " + str(self.game_state.fear) + "\n    Rapport: " + str(self.game_state.rapport))
+        self.game_state.log.append("\n\nFinal Stats:\n    Anger: " + str(self.game_state.anger) + "\n    Sad: " + str(self.game_state.sad) + "\n    Fear: " + str(self.game_state.fear) + "\n    Rapport: " + str(self.game_state.rapport))
+        self.finishedGame = True
         AARP.printStats(self.game_state.log)
 
     def sendInSwat(self):
         #between 0 and 30
-        base = 15
-        base -= self.game_state.anger
-        base -= self.game_state.sad
-        base -= self.game_state.fear
-        base += self.game_state.rapport
+        if self.finishedGame == False:
+            self.finishedGame = True
+            base = 15
+            base -= self.game_state.anger
+            base -= self.game_state.sad
+            base -= self.game_state.fear
+            base += self.game_state.rapport
 
-        number = randint(0,30)
+            number = randint(0,30)
 
-        if number <= base:
-            status = "SURVIVE"
-        else:
-            status = "DIE"
+            if number <= base:
+                status = "SURVIVE"
+            else:
+                status = "DIE"
 
 
-        self.game_state.log.append("YOU SENT IN SWAT!... All of the hostages: " + status)
-        self.gameEnded()
+            self.game_state.log.append("YOU SENT IN SWAT!... All of the hostages: " + status)
+            self.gameEnded()
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
     def user_input(self, text):
@@ -250,7 +254,6 @@ class GameScreen(Screen):
                 self.ids["aabutton"].text = "AARP"
                 self.ids["textInput"].text = "Game Over! Proceed to AARP"
                 self.ids["textInput"].on_focus = "False"
-                self.gameEnded()
         else:
             self.ids["textInput"].text = "Game Over! Proceed to AARP"
             self.ids["textInput"].on_focus = "False"
