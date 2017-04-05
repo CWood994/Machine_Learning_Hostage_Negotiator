@@ -18,6 +18,9 @@ from kivy.uix.button import *
 from kivy.app import App
 from kivy.lang import Builder
 import thread
+import os
+from random import randint
+
 
 from game_utils import utils
 from game_state import game_state
@@ -109,7 +112,6 @@ Builder.load_string("""
             anim_delay: 0.1
         Button:
             text: 'Goto game'
-            on_press: root.manager.current = 'game'
             on_press: root.startGame()
         BoxLayout:
 			orientation: 'horizontal'
@@ -117,7 +119,7 @@ Builder.load_string("""
 				id: sceneselect
 				size: root.height/4, root.width/4
 				text: "Scenario Select"
-				values: 'Jewelry Store Heist', 'None'
+				values: ""
 				size_hint: None, None
 			Button:
 				text: "Learn to Play"
@@ -165,10 +167,12 @@ class GameScreen(Screen):
         super(GameScreen, self).__init__()
         global GS
         GS=self
-        self.utils = utils()
-        self.game_state = game_state("nlc.json", "response.json", self.utils)
-        self.utils.updateGameState( self.game_state)
         self.name = 'game'
+
+    def changeGame(self, nlc, response):
+        self.utils = utils()
+        self.game_state = game_state(nlc, response, self.utils)
+        self.utils.updateGameState( self.game_state)
 
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
@@ -187,11 +191,6 @@ class GameScreen(Screen):
         
     def gameEnded(self):
         AARP.printStats(self.game_state.log)
-
-    def change_scenario(self):
-        #this may not work.. they both need pointers to each other...sorry
-        self.game_state = game_state("nlc.json", "response.json",self.utils)
-        self.utils = utils(self.game_state)
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
@@ -217,8 +216,24 @@ class GameScreen(Screen):
             
         
 class MenuScreen(Screen):
+
+    def __init__(self, name):
+        super(MenuScreen, self).__init__()
+        self.name = name
+        scenarioDir =  os.listdir("json/")
+        for i in scenarioDir:
+            if i[0] == ".":
+                scenarioDir.remove(i)
+
+        self.ids["sceneselect"].values = scenarioDir
+
     def startGame(self):
-        thread.start_new_thread(GS.game_state.start,())
+        if self.ids["sceneselect"].text != "Scenario Select":
+            scenarioDir =  os.listdir("json/"+self.ids["sceneselect"].text)
+            scenarioDir.remove("nlc.json")
+            GS.changeGame("nlc.json", scenarioDir[(randint(0,len(scenarioDir)-1))])
+            sm.current = 'game'
+            thread.start_new_thread(GS.game_state.start,())
     
 class CustomDropDown(DropDown):
     pass
@@ -238,8 +253,6 @@ class AfterActionScreen(Screen):
             stringToShow += s +"\n"
 
         self.ids["aascrollview"].children[0].text = stringToShow
-        #todo: end game based on stats
-        #todo: start text
 
     
 class HelpScreen(Screen):
