@@ -64,7 +64,7 @@ class game_state():
                             log_text += "\n     PREVIOUSLY VISITED NODE"
                             log_text += "\n         Anger: " + str(self.anger)  + " -1"
                             log_text += "\n         Rapport: " + str(self.rapport)  + " +1"  
-                            self.rapport -= 1
+                            #self.rapport -= 1 #way too hard for the time being
                             self.anger += 1
                             if self.rapport <0 or self.sad > 9 or self.anger > 9 or self.fear > 9:
                                 self.isTerminal = True
