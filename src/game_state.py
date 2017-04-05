@@ -42,21 +42,21 @@ class game_state():
                                     array = effect.split(":")
                                     #todo: adjust effects if this all of this is true...
                                     if array[0] == 'rapport':
-                                        log_text += "\n\tRapport: " + str(self.rapport)  + " " + array[1] 
+                                        log_text += "\n    Rapport: " + str(self.rapport)  + " " + array[1] 
                                         self.rapport = int(array[1]) + self.rapport
                                     elif array[0] == 'sad':
-                                        log_text += "\n\tSad: " + str(self.sad)  + " " + array[1] 
+                                        log_text += "\n    Sad: " + str(self.sad)  + " " + array[1] 
                                         self.sad = self.sad + int(array[1])
                                     elif array[0] == 'anger':
-                                        log_text += "\n\tAnger: " + str(self.anger)  + " " + array[1] 
+                                        log_text += "\n    Anger: " + str(self.anger)  + " " + array[1] 
                                         self.anger = self.anger + int(array[1])
                                     elif array[0] == 'fear':
-                                        log_text += "\n\tFear: " + str(self.fear)  + " " + array[1] 
+                                        log_text += "\n    Fear: " + str(self.fear)  + " " + array[1] 
                                         self.fear = self.fear + int(array[1])
                         else:
-                            log_text += "\n\t PREVIOUSLY VISITED NODE"
-                            log_text += "\n\t\t Anger: " + str(self.anger)  + " -1"
-                            log_text += "\n\t\t Rapport: " + str(self.rapport)  + " +1"  
+                            log_text += "\n     PREVIOUSLY VISITED NODE"
+                            log_text += "\n         Anger: " + str(self.anger)  + " -1"
+                            log_text += "\n         Rapport: " + str(self.rapport)  + " +1"  
                             self.rapport -= 1
                             self.anger += 1
                             return "I won't repeat myself! Pay attention!"
@@ -68,7 +68,10 @@ class game_state():
                         try:
                             response = self.convert_response(requirements["response"])
                         except:
-                            print "ERROR: reponse not found for: " + requirements["response"]
+                            temp = "ERROR: reponse not found for: " + requirements["response"]
+                            print temp
+                            self.log.append(text)
+                            self.log.append(temp)
                             response = "You're giving me a headache!"
                         self.visited.add(requirements["name"])
                         return response

@@ -48,7 +48,8 @@ Builder.load_string("""
                 id: aabutton
                 size_hint_x: 0.5
                 text: 'End Scenario'
-                on_press: root.manager.current = 'afteraction', root.gameEnded()
+                on_press: root.manager.current = 'afteraction'
+                on_press: root.gameEnded()
 
         ScrollView:
             id: scrollid
@@ -181,7 +182,7 @@ class GameScreen(Screen):
         self.utils.play_wav('output.wav')
         
     def gameEnded(self):
-        AfterActionScreen.printStats(self.game_state.log)
+        AARP.printStats(self.game_state.log)
 
     def change_scenario(self):
         self.game_state = game_state("nlc.json", "response.json")
@@ -206,11 +207,23 @@ class CustomDropDown(DropDown):
     pass
     
 class AfterActionScreen(Screen):
-    @staticmethod
-    def printStats(text):
+    
+    def __init__(self, name):
+        super(AfterActionScreen, self).__init__()
+        self.name = name
+        global AARP
+        AARP=self #Yikes! Brandon shut the fuck up.
+
+    def printStats(self, text):
+        stringToShow =""
         for s in text:
-            print s 
-        AfterActionScreen.ids["aatext"].text = text
+            print s
+            stringToShow += s +"\n"
+            
+        self.ids["aascrollview"].children[0].text = stringToShow
+        #todo: end game based on stats
+        #todo: start text
+
     
 class HelpScreen(Screen):
     pass
