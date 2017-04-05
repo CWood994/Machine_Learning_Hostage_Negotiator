@@ -155,11 +155,33 @@ Builder.load_string("""
 	BoxLayout:
 		orientation: 'vertical'
 		Button:
-			size_hint_y: 0.25
+			size_hint_y: 0.5
 			text: 'Goto menu'
 			on_press: root.manager.current = 'menu'
 		Label:
-			text: "Tutorial"
+			halign: 'left'
+			padding: 10, 10
+			text_size: root.width, None
+			size: self.texture_size
+			text: "Welcome to group 68b's hostage tranining simulator. Here are the basics you need to know in order to play the game."
+		Label:
+			halign: 'left'
+			padding: 10, 10
+			text_size: root.width, None
+			size: self.texture_size
+			text: "You have an assistant named Watson. In order to ask his advice, type into the bottom entry field any query you'd like prefaced with ~ watson ~. For example: Watson, what is rapport?"
+		Label:
+			halign: 'left'
+			padding: 10, 10
+			text_size: root.width, None
+			size: self.texture_size
+			text: "Responding to the hostage taker is as simple as typing into the bottom text box normally. You are under no time constraints for this, and can ask watson as many questions you like in between responses."
+		Label:
+			halign: 'left'
+			padding: 10, 10
+			text_size: root.width, None
+			size: self.texture_size
+			text: "In order to succeed at the scenarios, you must get the hostage taker into a mental state whereby you can arrest him without any danger to the hostages or surrounding police force. "
 """)
 class GameScreen(Screen):
 
