@@ -426,6 +426,17 @@
                 "effects": ["rapport:+1", "anger:-1"]
             }
         ]
+    },
+    {
+        "nlc_class": "WHAT_IS_GOING_ON",
+        "requirements":
+        [
+            {
+                "name": "WHAT_IS_GOING_ON",
+                "response": "WHAT_IS_GOING_ON_REPLY",
+                "effects": ["rapport:+1"]
+            }
+        ]
     }
 
 
