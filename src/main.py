@@ -17,6 +17,7 @@ from kivy.uix.boxlayout import *
 from kivy.uix.button import *
 from kivy.app import App
 from kivy.lang import Builder
+import thread
 
 from game_utils import utils
 from game_state import game_state
@@ -43,7 +44,7 @@ Builder.load_string("""
                 pos: 0, self.height + 60
                 height: root.height/2 - 30
                 size_hint_x: 1
-                source: 'hostage_1.jpg'
+                source: 'police_car.gif'
             Button:
                 id: aabutton
                 size_hint_x: 0.5
@@ -109,6 +110,7 @@ Builder.load_string("""
         Button:
             text: 'Goto game'
             on_press: root.manager.current = 'game'
+            on_press: root.startGame()
         BoxLayout:
 			orientation: 'horizontal'
 			Spinner:
@@ -161,9 +163,11 @@ class GameScreen(Screen):
 
     def __init__(self):
         super(GameScreen, self).__init__()
-        self.game_state = game_state("nlc.json", "response.json")
-        start_text = self.game_state.start() #TODO: implement start intro thing
-        self.utils = utils(self.game_state)
+        global GS
+        GS=self
+        self.utils = utils()
+        self.game_state = game_state("nlc.json", "response.json", self.utils)
+        self.utils.updateGameState( self.game_state)
         self.name = 'game'
 
     def hostage_taker_query(self, text):
@@ -185,23 +189,36 @@ class GameScreen(Screen):
         AARP.printStats(self.game_state.log)
 
     def change_scenario(self):
-        self.game_state = game_state("nlc.json", "response.json")
+        #this may not work.. they both need pointers to each other...sorry
+        self.game_state = game_state("nlc.json", "response.json",self.utils)
+        self.utils = utils(self.game_state)
 
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
     def user_input(self, text):
-        text = text.lower()
-        if self.utils.isWatsonQuery(text):
-            self.rr_process(self.utils.cleanse_rr_string(text))
+        if self.game_state.isTerminal == False:
+            text = text.lower()
+            if self.utils.isWatsonQuery(text):
+                self.rr_process(self.utils.cleanse_rr_string(text))
+            else:
+                self.hostage_taker_query(text)
+            self.ids['textInput'].text =  ''
+            if self.game_state.isTerminal == True:
+                print "GAMEOVER"
+                self.ids["aabutton"].text = "AARP"
+                self.ids["textInput"].text = "Game Over! Proceed to AARP"
+                self.ids["textInput"].on_focus = "False"
+                self.gameEnded()
         else:
-            self.hostage_taker_query(text)
-        self.ids['textInput'].text =  ''
-        if self.game_state.isTerminal == True:
+            self.ids["textInput"].text = "Game Over! Proceed to AARP"
+            self.ids["textInput"].on_focus = "False"
             self.gameEnded()
+
             
         
 class MenuScreen(Screen):
-    pass
+    def startGame(self):
+        thread.start_new_thread(GS.game_state.start,())
     
 class CustomDropDown(DropDown):
     pass
@@ -219,7 +236,7 @@ class AfterActionScreen(Screen):
         for s in text:
             print s
             stringToShow += s +"\n"
-            
+
         self.ids["aascrollview"].children[0].text = stringToShow
         #todo: end game based on stats
         #todo: start text

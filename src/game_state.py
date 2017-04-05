@@ -2,7 +2,8 @@ import json
 
 class game_state():
 
-    def __init__(self, situation, response):
+    def __init__(self, situation, response, utils):
+        self.utils = utils
         self.situation = situation
         self.response = response
         self.init_situation()
@@ -17,7 +18,7 @@ class game_state():
         json_data_res=open(self.response).read()
         self.response = json.loads(json_data_res)
 
-        self.rapport = 0
+        self.rapport = 1
         self.anger = 5
         self.fear = 5
         self.sad = 5
@@ -25,7 +26,13 @@ class game_state():
 
     def start(self):
         #todo: add start node to nlc and read that
-        return "starting intro: man robbing"
+        print self.convert_response("START_SCENARIO")
+        try:
+            self.utils.rr_process("DO_NOT_USE", self.convert_response("START_SCENARIO"))
+            self.utils.play_wav('output.wav')
+        except:
+            print "COULD NOT PLAY START SCENARIO, MAYBE START_SCENARIO NOT IN RESPONSE JSON"
+
 
     def move_state(self, NLC_CLASS, text):
         print NLC_CLASS #BRANDON, DONT DELETE THIS LINE! BITCH :)
@@ -59,10 +66,14 @@ class game_state():
                             log_text += "\n         Rapport: " + str(self.rapport)  + " +1"  
                             self.rapport -= 1
                             self.anger += 1
+                            if self.rapport <0 or self.sad > 9 or self.anger > 9 or self.fear > 9:
+                                self.isTerminal = True
                             return "I won't repeat myself! Pay attention!"
                         self.log.append(log_text)
                         if "terminal" in requirements:
                             self.log.append("GAME_OVER")
+                            self.isTerminal = True
+                        if self.rapport <0 or self.sad > 9 or self.anger > 9 or self.fear > 9:
                             self.isTerminal = True
 
                         try:

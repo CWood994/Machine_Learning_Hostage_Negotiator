@@ -9,11 +9,14 @@ from sys import platform
 
 class utils():
 
-    def __init__(self, gameState):
+    def __init__(self):
         self.init_services()
-        self.gameState = gameState
+        self.gameState = None
         #regular expression identifier for text that goes to R&R
         self.rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
+
+    def updateGameState(self, gs):
+        self.gameState = gs
 
     #Get rid of the rr_text_id regular expression
     def cleanse_rr_string(self, text):
@@ -48,7 +51,7 @@ class utils():
     #Takes some text destined for rr, gets the first result with rr_query_
     #first_result and then uses text to speech to write a wav file with the
     #response text
-    def rr_process(self, text):
+    def rr_process(self, text, startTextHackSorry = ""):
         answer = self.rr_query_first_result(text)
         #print newText in the Gui
 
@@ -60,6 +63,8 @@ class utils():
                 status = "a GOOD" 
             answer = "According to facial analysis, the hostage taker currently is at:\n    Rapport: " + str(self.gameState.rapport) + "\n    Anger: " + str(self.gameState.anger) + "\n    Sad: " + str(self.gameState.sad) + "\n    Fear: " + str(self.gameState.fear) + "\n\nIt appears that you are doing " + status + " job!"
 
+        if startTextHackSorry != "":
+            answer = startTextHackSorry
 
         try:
             with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
