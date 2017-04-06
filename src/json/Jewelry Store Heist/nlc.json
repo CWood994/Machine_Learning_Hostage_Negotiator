@@ -300,7 +300,7 @@
             {
                 "name": "THREATEN_1",
                 "response": "THREATEN_REPLY",
-                "effects": ["anger:+2", "fear:+1"]
+                "effects": ["anger:+3", "fear:+2"]
 
             }
         ]
@@ -312,7 +312,7 @@
             {
                 "name": "TAUNT_1",
                 "response": "TAUNT_REPLY",
-                "effects": ["anger:+1"]
+                "effects": ["anger:+2"]
             }
         ]
     },
