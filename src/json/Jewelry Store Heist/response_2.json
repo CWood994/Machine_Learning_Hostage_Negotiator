@@ -40,5 +40,6 @@
     "WHAT_IS_GOING_ON_REPLY" : "I need you to go take a long walk off a short pier.",
     "PLEAD_REPLY" : "I don't see myself doing that.",
     "ARE_YOU_GOING_TO_HURT_THE_HOSTAGE_REPLY" : "Give me what I want and nobody will get hurt.",
-    "TAUNT_REPLY" : "What really grinds my gears is talking to an incompetent cop like yourself."
+    "TAUNT_REPLY" : "What really grinds my gears is talking to an incompetent cop like yourself.",
+    "INTRO_SELF_REPLY" : "I don't care who you are!"
 }

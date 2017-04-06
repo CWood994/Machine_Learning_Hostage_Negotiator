@@ -40,5 +40,6 @@
     "WHAT_IS_GOING_ON_REPLY" : "I have taken this person hostage, leave me alone.",
     "PLEAD_REPLY" : "I can't do that.",
     "ARE_YOU_GOING_TO_HURT_THE_HOSTAGE_REPLY" : "Only if you attack me.",
-	"TAUNT_REPLY" : "Don't mess with me!"
+	"TAUNT_REPLY" : "Don't mess with me!",
+    "INTRO_SELF_REPLY" : "Hello sir"
 }

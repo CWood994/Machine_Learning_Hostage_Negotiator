@@ -266,6 +266,7 @@ class GameScreen(Screen):
         else:
             if self.finishedGame == False:
                 self.gameEnded()
+            self.ids["aabutton"].text = "AARP"
             self.ids["textInput"].text = "Game Over! Proceed to AARP"
             self.ids["textInput"].on_focus = "False"
 
