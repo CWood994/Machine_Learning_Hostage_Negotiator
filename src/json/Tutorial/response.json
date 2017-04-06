@@ -36,7 +36,7 @@
     "GREETINGS_REPLY" : "Hello",
     "SHE_NO_WANT_REPLY" : "You're right man, I shouldn't be doing this. I'll come out",
     "THREATEN_REPLY" : "You shouldn't threaten me",
-    "HOW_ARE_YOU_REPLY" : "I'm not doing so well, but you are! good job! You should now have enough rapport to ask my intentions",
+    "HOW_ARE_YOU_REPLY" : "I'm not doing so well, but you are! good job! You should now have enough rapport to ask my intentions. You can also ask Watson how you are doing",
     "WHAT_IS_GOING_ON_REPLY" : "I have taken this person hostage, leave me alone.",
     "PLEAD_REPLY" : "I can't do that.",
     "ARE_YOU_GOING_TO_HURT_THE_HOSTAGE_REPLY" : "Only if you attack me.",
