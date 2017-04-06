@@ -196,10 +196,10 @@ class GameScreen(Screen):
 
     def changeGame(self, nlc, response):
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: "
-        self.ids['scrollid'].children[0].text = "Watson: "
         self.ids['mainImage'].source = "police_car.gif"
         self.utils = utils()
         self.game_state = game_state(nlc, response, self.utils)
+        self.ids['scrollid'].children[0].text = "Watson: " + self.game_state.startText()
         self.utils.updateGameState( self.game_state)
 
     def hostage_taker_query(self, text):

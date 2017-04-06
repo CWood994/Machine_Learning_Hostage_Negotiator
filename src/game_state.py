@@ -32,6 +32,8 @@ class game_state():
             self.utils.play_wav('output.wav')
         except:
             print "COULD NOT PLAY START SCENARIO, MAYBE START_SCENARIO NOT IN RESPONSE JSON"
+    def startText(self):
+        return self.convert_response("START_SCENARIO")
 
 
     def move_state(self, NLC_CLASS, text):
