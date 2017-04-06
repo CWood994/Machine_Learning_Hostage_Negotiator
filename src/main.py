@@ -40,7 +40,7 @@ Builder.load_string("""
             canvas:
             Button:
                 size_hint_x: 0.5
-                text: 'Goto menu'
+                text: 'Menu'
                 on_press: root.manager.current = 'menu'
             Image:
                 id: mainImage
@@ -111,21 +111,23 @@ Builder.load_string("""
             allow_stretch: True
             anim_delay: 0.1
         Button:
-            text: 'Goto game'
+            text: 'Start Game'
             on_press: root.startGame()
         BoxLayout:
 			orientation: 'horizontal'
 			Spinner:
 				id: sceneselect
-				size: root.height/4, root.width/4
+				size: root.height/3, root.width/4
 				text: "Scenario Select"
 				values: ""
 				size_hint: None, None
 			Button:
 				text: "Learn to Play"
+                size: root.height/3, root.width/4
 				on_press: root.manager.current = 'help'
 			Button:
 				id: btnExit
+                size: root.height/3, root.width/4
 				text: "Exit"
 				on_press: app.stop()
 <AfterActionScreen>:
@@ -135,7 +137,7 @@ Builder.load_string("""
             orientation: 'horizontal'
             size_hint_y: 0.25
             Button:
-                text: 'Goto menu'
+                text: 'Menu'
                 on_press: root.manager.current = 'menu'
             Button: 
                 text: 'Quit'
@@ -156,7 +158,7 @@ Builder.load_string("""
 		orientation: 'vertical'
 		Button:
 			size_hint_y: 0.5
-			text: 'Goto menu'
+			text: 'Menu'
 			on_press: root.manager.current = 'menu'
 		Label:
 			halign: 'left'
@@ -233,7 +235,11 @@ class GameScreen(Screen):
             base -= self.game_state.fear
             base += self.game_state.rapport
 
+            print base
+
             number = randint(0,30)
+
+            print number
 
             if number <= base:
                 status = "SURVIVE"
