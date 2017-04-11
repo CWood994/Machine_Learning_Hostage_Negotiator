@@ -7,7 +7,7 @@ class game_state():
         self.situation = situation
         self.response = response
         self.init_situation()
-        self.visited = set()
+        self.visited = []
         self.isTerminal = False
         self.log = []
 
@@ -44,7 +44,7 @@ class game_state():
                 for requirements in node["requirements"]:
                     if self.check_requirements(requirements):
                         log_text = text + " -> " + NLC_CLASS
-                        if requirements["name"] not in self.visited:
+                        if self.visited.count(requirements["name"]) < 2:
                             if 'effects' in requirements.keys():
                                 for effect in requirements['effects']:
                                     print(effect)
@@ -63,7 +63,7 @@ class game_state():
                                         log_text += "\n    Fear: " + str(self.fear)  + " " + array[1] 
                                         self.fear = self.fear + int(array[1])
                         else:
-                            log_text += "\n     PREVIOUSLY VISITED NODE"
+                            log_text += "\n     PREVIOUSLY VISITED NODE X2"
                             log_text += "\n         Anger: " + str(self.anger)  + " +1"
                             log_text += "\n         Rapport: " + str(self.rapport)  + " -1"  
                             #self.rapport -= 1 #way too hard for the time being
@@ -88,7 +88,7 @@ class game_state():
                             self.log.append(text)
                             self.log.append(temp)
                             response = "You're giving me a headache!"
-                        self.visited.add(requirements["name"])
+                        self.visited.append(requirements["name"])
                         return response
 
                         
