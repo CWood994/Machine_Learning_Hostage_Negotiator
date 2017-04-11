@@ -14,8 +14,6 @@ class utils():
         self.gameState = None
         #regular expression identifier for text that goes to R&R
         self.rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
-        self.recorder = Recorder(channels=2)
-        self.recording = False
 
     def updateGameState(self, gs):
         self.gameState = gs
@@ -40,10 +38,6 @@ class utils():
         self.natural_language_classifier = NaturalLanguageClassifierV1(
             username='9215e28a-3cff-4d3b-ad99-44d35e641876',
             password='6CXwnXGbblMh')
-        
-        self.speech_to_text = SpeechToTextV1(
-            username='9ddc74aa-1494-40cd-8022-e13effed7635'
-            password='brtLY1f2jmmy')
 
         self.configs = self.retrieve_and_rank.list_configs(solr_cluster_id=self.solr_cluster_id)
 
@@ -146,23 +140,3 @@ class utils():
         except IndexError:
             response = "I'm sorry, they don't teach that at the academy"
         return response
-
-    def speech_to_text(self):
-        if not self.recording:
-            self.recording = True
-            self.record_audio()
-            return self.speech_to_text.reconize('input_audio.wav', 'wav')
-        else:
-            self.recording = False
-            return 0
-
-    def record_audio(self):
-        with self.recorder.open('input_audio.wav', 'wb') as recFile:
-            recFile.start_recording()
-            count = 0
-            while self.recording:
-                time.sleep(1)
-                count += 1
-                if count > 14:
-                    self.recording = False
-            recFile.stop_recording()
