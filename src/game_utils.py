@@ -4,6 +4,7 @@ from watson_developer_cloud import RetrieveAndRankV1
 from watson_developer_cloud import NaturalLanguageClassifierV1
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
+from watson_developer_cloud import ToneAnalyzerV3
 from subprocess import Popen
 from sys import platform
 
@@ -38,6 +39,11 @@ class utils():
         self.natural_language_classifier = NaturalLanguageClassifierV1(
             username='9215e28a-3cff-4d3b-ad99-44d35e641876',
             password='6CXwnXGbblMh')
+            
+        self.tone_analyzer = ToneAnalyzerV3(
+            username='c983c6a5-d2c9-4574-a7d8-538c487e6054',
+            password='mJDssOlQ6UzL',
+            version='2016-02-11')
 
         self.configs = self.retrieve_and_rank.list_configs(solr_cluster_id=self.solr_cluster_id)
 
@@ -47,6 +53,18 @@ class utils():
 
     def nlc_classify_top_result(self, text):
         return self.nlc_classify(text)['classes'][0]['class_name']
+        
+    def analyze_tone(self, text):
+        preTones = json.dumps(self.tone_analyzer.tone(text=text), indent=2)
+        tones = json.loads(preTones)
+        scoreList = []
+        for x in range(0,3):
+            numTones = 5
+            if x == 1:
+                numTones = 3
+            for y in range(0,numTones):
+                scoreList.append([tones["document_tone"]["tone_categories"][x]["tones"][y]["tone_name"],tones["document_tone"]["tone_categories"][x]["tones"][y]['score']])
+        return scoreList
 
     #Takes some text destined for rr, gets the first result with rr_query_
     #first_result and then uses text to speech to write a wav file with the
