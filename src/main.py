@@ -208,6 +208,7 @@ class GameScreen(Screen):
         response = self.game_state.move_state(NLC_class, text)
         self.utils.hostageTakerVoice(response)
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
+        self.updateUI()
 
     def rr_process(self, text):
         print self.ids['mainImage'].source
@@ -219,6 +220,16 @@ class GameScreen(Screen):
         self.ids['scrollid'].children[0].text = "Watson: " + answer
         #play the audio if it exists
         self.utils.play_wav('output.wav')
+        self.updateUI()
+
+    def updateUI(self):
+        print self.game_state.isTerminal == True 
+        print self.finishedGame == True
+        if self.game_state.isTerminal == True or self.finishedGame == True:
+            self.ids["aabutton"].text = "AARP"
+            self.ids["textInput"].text = "Game Over! Proceed to AARP"
+            self.ids["textInput"].on_focus = "False"
+
         
     def gameEnded(self):
         self.game_state.log.append("\n\nFinal Stats:\n    Anger: " + str(self.game_state.anger) + "\n    Sad: " + str(self.game_state.sad) + "\n    Fear: " + str(self.game_state.fear) + "\n    Rapport: " + str(self.game_state.rapport))

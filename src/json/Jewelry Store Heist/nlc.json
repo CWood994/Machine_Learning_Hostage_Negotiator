@@ -300,7 +300,7 @@
             {
                 "name": "THREATEN_1",
                 "response": "THREATEN_REPLY",
-                "effects": ["anger:+3", "fear:+2"]
+                "effects": ["anger:+5", "fear:+2"]
 
             }
         ]
