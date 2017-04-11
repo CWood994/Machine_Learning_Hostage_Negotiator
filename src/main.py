@@ -33,6 +33,15 @@ from kivy.config import Config
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
 Builder.load_string("""
+<ImageButton@Button>:
+	source: None
+	background_color: 1, 1, 1, 1
+	on_press: root.on_press
+	Image:
+        source: root.source
+		pos: root.pos
+		size: root.size
+        
 <GameScreen>: 
     BoxLayout:
         orientation: 'vertical'
@@ -85,22 +94,27 @@ Builder.load_string("""
                 height: self.texture_size[1]
                 size_hint_y: None
                 valign: 'top'
-                padding: 5, 5
                 text_size: self.width, None
                 text: "Hostage Taker: "
             
-        
-        TextInput:
-            id: textInput
-            text: 'Enter your query here'
-            bottom: 0
-            width: root.width
-            scroll_x: 0
-            height: 30
-            multiline: False
-            on_focus: True
-            on_text_validate: root.user_input(self.text)
-            use_bubble: True
+        BoxLayout:
+			orientation: 'horizontal'
+			TextInput:
+				id: textInput
+				text: 'Enter your query here'
+				bottom: 0
+				width: root.width
+				scroll_x: 0
+				height: 30
+				multiline: False
+				on_focus: True
+				on_text_validate: root.user_input(self.text)
+				use_bubble: True
+			ImageButton:
+				allow_stretch: True
+				keep_ratio: False
+				size_hint_x: 0.3
+				source: 'mic.png'
         
 <MenuScreen>:
     BoxLayout:
@@ -235,6 +249,10 @@ class GameScreen(Screen):
         self.game_state.log.append("\n\nFinal Stats:\n    Anger: " + str(self.game_state.anger) + "\n    Sad: " + str(self.game_state.sad) + "\n    Fear: " + str(self.game_state.fear) + "\n    Rapport: " + str(self.game_state.rapport))
         self.finishedGame = True
         AARP.printStats(self.game_state.log)
+        
+    def stt(self):
+		text = self.utils.speech_2_text()
+		self.hostage_taker_query(self, text)
 
     def sendInSwat(self):
         #between 0 and 30

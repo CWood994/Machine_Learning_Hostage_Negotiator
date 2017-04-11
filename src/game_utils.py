@@ -4,6 +4,8 @@ from watson_developer_cloud import RetrieveAndRankV1
 from watson_developer_cloud import NaturalLanguageClassifierV1
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
+from watson_developer_cloud import SpeechToTextV1
+from recording import Recorder
 from subprocess import Popen
 from sys import platform
 
@@ -42,7 +44,7 @@ class utils():
             password='6CXwnXGbblMh')
         
         self.speech_to_text = SpeechToTextV1(
-            username='9ddc74aa-1494-40cd-8022-e13effed7635'
+            username='9ddc74aa-1494-40cd-8022-e13effed7635',
             password='brtLY1f2jmmy')
 
         self.configs = self.retrieve_and_rank.list_configs(solr_cluster_id=self.solr_cluster_id)
