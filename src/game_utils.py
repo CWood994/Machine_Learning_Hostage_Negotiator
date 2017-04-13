@@ -5,8 +5,11 @@ from watson_developer_cloud import NaturalLanguageClassifierV1
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
 from watson_developer_cloud import ToneAnalyzerV3
+from watson_developer_cloud import SpeechToTextV1
+from recording import Recorder
 from subprocess import Popen
 from sys import platform
+import time
 
 class utils():
 
@@ -44,8 +47,14 @@ class utils():
             username='c983c6a5-d2c9-4574-a7d8-538c487e6054',
             password='mJDssOlQ6UzL',
             version='2016-02-11')
+        
+        self.speech_to_text = SpeechToTextV1(
+            username='9ddc74aa-1494-40cd-8022-e13effed7635',
+            password='brtLY1f2jmmy')
 
         self.configs = self.retrieve_and_rank.list_configs(solr_cluster_id=self.solr_cluster_id)
+
+        self.speech_to_text.get_model('en-US_BroadbandModel')
 
     def nlc_classify(self, text):
         classes = self.natural_language_classifier.classify('90e7b4x199-nlc-5406', text)
@@ -158,3 +167,27 @@ class utils():
         except IndexError:
             response = "I'm sorry, they don't teach that at the academy"
         return response
+
+    def call_speech_to_text(self):
+        if not self.recording:
+            self.recording = True
+            self.record_audio()
+            result = ""
+            with open('input_audio.wav') as audio_file:
+                result = self.speech_to_text.recognize(audio_file, content_type='audio/wav',timestamps=True,word_confidence=True)
+            result = result['results'][0]['alternatives'][0]['transcript']
+            return result
+        else:
+            self.recording = False
+            return 0
+
+    def record_audio(self):
+        with self.recorder.open('input_audio.wav', 'wb') as recFile:
+            recFile.start_recording()
+            count = 0
+            while self.recording:
+                time.sleep(1)
+                count += 1
+                if count > 14:
+                    self.recording = False
+            recFile.stop_recording()
