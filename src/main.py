@@ -111,6 +111,7 @@ Builder.load_string("""
 				on_text_validate: root.user_input(self.text)
 				use_bubble: True
 			ImageButton:
+                id: micpictureConnorHotdog
 				allow_stretch: True
 				keep_ratio: False
 				size_hint_x: 0.3
@@ -257,6 +258,7 @@ class GameScreen(Screen):
         AARP.printStats(self.game_state.log)
         
     def stt(self):
+        self.ids["micpictureConnorHotdog"].source = "mic2.png"
         thread.start_new_thread(self.utils.call_speech_to_text, (self,))
 
     def updateSTT(self, text):
@@ -264,6 +266,8 @@ class GameScreen(Screen):
             self.ids["textInput"].text = text
         else:
             self.ids["textInput"].text += " "+text
+        self.ids["micpictureConnorHotdog"].source = "mic.png"
+
 
     def sendInSwat(self):
         if self.NOSWAT ==False:

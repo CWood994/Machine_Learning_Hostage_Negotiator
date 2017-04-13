@@ -191,6 +191,6 @@ class utils():
             while self.recording:
                 time.sleep(1)
                 count += 1
-                if count > 14:
+                if count > 5:
                     self.recording = False
             recFile.stop_recording()
