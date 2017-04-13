@@ -20,7 +20,7 @@ from kivy.lang import Builder
 import thread
 import os
 from random import randint
-
+import time
 
 from game_utils import utils
 from game_state import game_state
@@ -207,6 +207,8 @@ class GameScreen(Screen):
         GS=self
         self.finishedGame = False
         self.name = 'game'
+        global swat 
+        swat = False
 
     def changeGame(self, nlc, response):
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: "
@@ -261,6 +263,9 @@ class GameScreen(Screen):
 
     def sendInSwat(self):
         #between 0 and 30
+        print "TRUE\n\n"
+        global swat
+        swat = True
         if self.finishedGame == False:
             self.finishedGame = True
             base = 15
@@ -343,12 +348,28 @@ class AfterActionScreen(Screen):
         AARP=self #Yikes! Brandon shut the fuck up.
 
     def printStats(self, text):
+
         stringToShow =""
         for s in text:
             print s
             stringToShow += s +"\n"
 
-        self.ids["aascrollview"].children[0].text = stringToShow
+        thread.start_new_thread(self.updateText,(stringToShow,))
+        
+
+    def updateText(self, text):
+        print swat
+        if swat == True:
+            time.sleep(.5)
+
+            if platform == "linux" or platform == "linux2" or platform == "darwin":
+                Popen(["play", 'gun.wav'])
+            elif platform == "win32":
+                Popen(["sox", 'gun.wav', '-t', 'waveaudio'], shell = True)
+
+            time.sleep(2)
+
+        self.ids["aascrollview"].children[0].text = text
 
     
 class HelpScreen(Screen):
