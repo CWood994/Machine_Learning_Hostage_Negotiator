@@ -57,6 +57,7 @@ Builder.load_string("""
                 height: root.height/2 - 30
                 size_hint_x: 1
                 source: 'police_car.gif'
+                anim_delay: 0.1
             Button:
                 id: aabutton
                 size_hint_x: 0.5
