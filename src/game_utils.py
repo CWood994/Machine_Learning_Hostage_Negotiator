@@ -18,6 +18,8 @@ class utils():
         self.gameState = None
         #regular expression identifier for text that goes to R&R
         self.rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
+        self.recorder = Recorder(channels=2)
+        self.recording = False
 
     def updateGameState(self, gs):
         self.gameState = gs
