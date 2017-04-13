@@ -62,7 +62,6 @@ Builder.load_string("""
                 id: aabutton
                 size_hint_x: 0.5
                 text: 'Send In Swat'
-                on_press: root.manager.current = 'afteraction'
                 on_press: root.sendInSwat()
 
         ScrollView:
@@ -208,6 +207,7 @@ class GameScreen(Screen):
         GS=self
         self.finishedGame = False
         self.name = 'game'
+        self.NOSWAT = False
         global swat 
         swat = False
 
@@ -245,6 +245,7 @@ class GameScreen(Screen):
         print self.game_state.isTerminal == True 
         print self.finishedGame == True
         if self.game_state.isTerminal == True or self.finishedGame == True:
+            self.NOSWAT = True
             self.ids["aabutton"].text = "AARP"
             self.ids["textInput"].text = "Game Over! Proceed to AARP"
             self.ids["textInput"].on_focus = "False"
@@ -263,32 +264,32 @@ class GameScreen(Screen):
                     self.ids["textInput"].text += " "+text
 
     def sendInSwat(self):
-        #between 0 and 30
-        print "TRUE\n\n"
-        global swat
-        swat = True
-        if self.finishedGame == False:
-            self.finishedGame = True
-            base = 15
-            base -= self.game_state.anger
-            base -= self.game_state.sad
-            base -= self.game_state.fear
-            base += self.game_state.rapport
+        if self.NOSWAT ==False:
+            #between 0 and 30
+            global swat
+            swat = True
+            if self.finishedGame == False:
+                self.finishedGame = True
+                base = 15
+                base -= self.game_state.anger
+                base -= self.game_state.sad
+                base -= self.game_state.fear
+                base += self.game_state.rapport
 
-            print base
+                print base
 
-            number = randint(0,30)
+                number = randint(0,30)
 
-            print number
+                print number
 
-            if number <= base:
-                status = "SURVIVE"
-            else:
-                status = "DIE"
+                if number <= base:
+                    status = "SURVIVE"
+                else:
+                    status = "DIE"
 
 
             self.game_state.log.append("YOU SENT IN SWAT!... All of the hostages: " + status)
-            self.gameEnded()
+        self.gameEnded()
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
     def user_input(self, text):
@@ -359,7 +360,7 @@ class AfterActionScreen(Screen):
         
 
     def updateText(self, text):
-        print swat
+        sm.current = 'afteraction'
         if swat == True:
             time.sleep(.5)
 

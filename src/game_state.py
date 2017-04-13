@@ -1,4 +1,11 @@
 import json
+import thread
+import time
+from sys import platform
+from subprocess import Popen
+
+
+
 
 class game_state():
 
@@ -94,11 +101,8 @@ class game_state():
                             return "I won't repeat myself! Pay attention!"
                         self.log.append(log_text)
                         if "terminal" in requirements:
-                            self.log.append("HOSTAGES RELEASED!")
+                            self.log.append("\nHOSTAGES RELEASED!")
                             self.isTerminal = True
-                        if self.rapport <0 or self.sad > 9 or self.anger > 9 or self.fear > 9:
-                            self.isTerminal = True
-
                         try:
                             response = self.convert_response(requirements["response"])
                         except:
@@ -108,12 +112,25 @@ class game_state():
                             self.log.append(temp)
                             response = "You're giving me a headache!"
                         self.visited.append(requirements["name"])
+                        if self.rapport <0 or self.sad > 9 or self.anger > 9 or self.fear > 9:
+                            self.log.append("\nSTATS EXCEEDED MAX / MIN VALUE")
+                            response += "\nEVERYONE IS DEAD NOW!"
+                            self.isTerminal = True
+                            thread.start_new_thread(self.playGun,())
                         return response
 
                         
 
         print "ERROR: No state found for NLC_CLASS: " + NLC_CLASS + " : %d %d %d %d" % (self.rapport, self.anger, self.fear,self.sad)
         return "Quit playing games with me!"
+
+    def playGun(self):
+        time.sleep(4)
+
+        if platform == "linux" or platform == "linux2" or platform == "darwin":
+            Popen(["play", 'gun.wav'])
+        elif platform == "win32":
+            Popen(["sox", 'gun.wav', '-t', 'waveaudio'], shell = True)
 
 
     def check_requirements(self, json):
