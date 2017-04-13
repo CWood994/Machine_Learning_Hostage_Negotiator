@@ -26,7 +26,7 @@ from game_utils import utils
 from game_state import game_state
 
 #This is the games main widget.
-#TODO make another widget to float ontop as an ingame menu or add
+#make another widget to float ontop as an ingame menu or add
 # navigation tools somewhere in this widget
 
 from kivy.config import Config
