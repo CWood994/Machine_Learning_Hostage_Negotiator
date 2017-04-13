@@ -24,6 +24,25 @@ class game_state():
         self.sad = 5
         self.attributes = ['rapport', 'anger', 'fear', 'sad']
 
+    def anal_tones(self, tones):
+        log_text = "\n"
+        for tone in tones:
+            print tone
+            if tone[0] == "Fear" and tone[1] > .70:
+                self.fear += 1
+                log_text += "Your language shows Fear! \n"
+            if tone[0] == "Anger" and tone[1] > .70:
+                self.anger += 1
+                self.sad += 1
+                self.fear += 1
+                log_text += "Your language shows Anger! \n"
+
+            if tone[0] == "Sadness" and tone[1] > .70:
+                self.sad += 1
+                log_text += "Your language shows Sadness! \n"
+
+        self.log.append(log_text)
+
     def start(self):
         #todo: add start node to nlc and read that
         print self.convert_response("START_SCENARIO")
