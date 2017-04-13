@@ -219,8 +219,7 @@ class GameScreen(Screen):
     def hostage_taker_query(self, text):
         NLC_class = self.utils.nlc_classify_top_result(text)
         tones = self.utils.analyze_tone(text)
-        for x in range(0,len(tones)):
-            print tones[x]
+        self.game_state.anal_tones(tones)
         #self.ids['mainImage'].source = "hostage_1.jpg"
         response = self.game_state.move_state(NLC_class, text)
         self.utils.hostageTakerVoice(response)
