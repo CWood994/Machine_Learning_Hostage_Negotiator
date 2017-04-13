@@ -115,7 +115,7 @@ Builder.load_string("""
 				keep_ratio: False
 				size_hint_x: 0.3
 				source: 'mic.png'
-        
+				on_press: root.stt()
 <MenuScreen>:
     BoxLayout:
         orientation: 'vertical'
@@ -251,8 +251,11 @@ class GameScreen(Screen):
         AARP.printStats(self.game_state.log)
         
     def stt(self):
-		text = self.utils.speech_2_text()
-		self.hostage_taker_query(self, text)
+		text = self.utils.call_speech_to_text()
+                if self.ids["textInput"].text == 'Enter your query here':
+                    self.ids["textInput"].text = text
+                else:
+                    self.ids["textInput"].text += " "+text
 
     def sendInSwat(self):
         #between 0 and 30

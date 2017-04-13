@@ -8,6 +8,7 @@ from watson_developer_cloud import SpeechToTextV1
 from recording import Recorder
 from subprocess import Popen
 from sys import platform
+import time
 
 class utils():
 
@@ -48,6 +49,8 @@ class utils():
             password='brtLY1f2jmmy')
 
         self.configs = self.retrieve_and_rank.list_configs(solr_cluster_id=self.solr_cluster_id)
+
+        self.speech_to_text.get_model('en-US_BroadbandModel')
 
     def nlc_classify(self, text):
         classes = self.natural_language_classifier.classify('90e7b4x199-nlc-5406', text)
@@ -149,11 +152,15 @@ class utils():
             response = "I'm sorry, they don't teach that at the academy"
         return response
 
-    def speech_to_text(self):
+    def call_speech_to_text(self):
         if not self.recording:
             self.recording = True
             self.record_audio()
-            return self.speech_to_text.reconize('input_audio.wav', 'wav')
+            result = ""
+            with open('input_audio.wav') as audio_file:
+                result = self.speech_to_text.recognize(audio_file, content_type='audio/wav',timestamps=True,word_confidence=True)
+            result = result['results'][0]['alternatives'][0]['transcript']
+            return result
         else:
             self.recording = False
             return 0
