@@ -257,11 +257,13 @@ class GameScreen(Screen):
         AARP.printStats(self.game_state.log)
         
     def stt(self):
-		text = self.utils.call_speech_to_text()
-                if self.ids["textInput"].text == 'Enter your query here':
-                    self.ids["textInput"].text = text
-                else:
-                    self.ids["textInput"].text += " "+text
+        thread.start_new_thread(self.utils.call_speech_to_text, (self,))
+
+    def updateSTT(self, text):
+        if self.ids["textInput"].text == 'Enter your query here':
+            self.ids["textInput"].text = text
+        else:
+            self.ids["textInput"].text += " "+text
 
     def sendInSwat(self):
         if self.NOSWAT ==False:

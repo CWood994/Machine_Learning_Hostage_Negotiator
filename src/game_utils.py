@@ -10,7 +10,6 @@ from recording import Recorder
 from subprocess import Popen
 from sys import platform
 import time
-import thread
 
 
 class utils():
@@ -172,7 +171,7 @@ class utils():
             response = "I'm sorry, they don't teach that at the academy"
         return response
 
-    def call_speech_to_text(self):
+    def call_speech_to_text(self, mainSelf):
         if not self.recording:
             self.recording = True
             self.record_audio()
@@ -180,10 +179,10 @@ class utils():
             with open('input_audio.wav') as audio_file:
                 result = self.speech_to_text.recognize(audio_file, content_type='audio/wav',timestamps=True,word_confidence=True)
             result = result['results'][0]['alternatives'][0]['transcript']
-            return result
         else:
             self.recording = False
-            return 0
+            result = "0"
+        mainSelf.updateSTT(result)
 
     def record_audio(self):
         with self.recorder.open('input_audio.wav', 'wb') as recFile:
