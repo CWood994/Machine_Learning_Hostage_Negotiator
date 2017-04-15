@@ -221,13 +221,20 @@ class GameScreen(Screen):
         self.utils.updateGameState( self.game_state)
 
     def hostage_taker_query(self, text):
-        NLC_class = self.utils.nlc_classify_top_result(text)
-        tones = self.utils.analyze_tone(text)
-        self.game_state.anal_tones(tones)
-        #self.ids['mainImage'].source = "hostage_1.jpg"
-        response = self.game_state.move_state(NLC_class, text)
-        self.utils.hostageTakerVoice(response)
-        self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
+        is_spelled_correctly = self.utils.spellcheck(text)
+        print "was the text spelled right?: " + str(is_spelled_correctly)
+        if not is_spelled_correctly:
+            self.ids['mainImage'].source = "watson_avatar.jpg" #why no work?
+            self.ids['scrollid'].children[0].text = "Watson: Check your response there, you wouldn't want to sound dumb speaking to the hostage taker would you?"
+            self.utils.WatsonVoice("Check your response there, you wouldn't want to sound dumb speaking to the hostage taker would you?")
+        else:
+            NLC_class = self.utils.nlc_classify_top_result(text)
+            tones = self.utils.analyze_tone(text)
+            self.game_state.anal_tones(tones)
+            #self.ids['mainImage'].source = "hostage_1.jpg"
+            response = self.game_state.move_state(NLC_class, text)
+            self.utils.hostageTakerVoice(response)
+            self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
         self.updateUI()
 
     def rr_process(self, text):
@@ -235,11 +242,17 @@ class GameScreen(Screen):
         print self.ids['mainImage']
         print self.ids['mainImage'].source
         #self.ids['mainImage'].source = "watson_avatar.jpg"
-        answer = self.utils.rr_process(text)
-        #print newText in the Gui
-        self.ids['scrollid'].children[0].text = "Watson: " + answer
-        #play the audio if it exists
-        self.utils.play_wav('output.wav')
+        is_spelled_correctly = self.utils.spellcheck(text[6:])
+        print "was the text spelled right?: " + str(is_spelled_correctly)
+        if not is_spelled_correctly:
+            self.ids['scrollid'].children[0].text = "Watson: I don't quite follow you, could you repeat your question clearly?"
+            self.utils.WatsonVoice("I don't quite follow you, could you repeat your question clearly?")
+        else:
+            answer = self.utils.rr_process(text)
+            #print newText in the Gui
+            self.ids['scrollid'].children[0].text = "Watson: " + answer
+            #play the audio if it exists
+            self.utils.play_wav('output.wav')
         self.updateUI()
 
     def updateUI(self):

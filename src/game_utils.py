@@ -10,6 +10,7 @@ from recording import Recorder
 from subprocess import Popen
 from sys import platform
 import time
+import enchant
 
 
 class utils():
@@ -21,6 +22,7 @@ class utils():
         self.rr_text_id = "^\w*\s*watson[,.\-!]{0,1}\s+"
         self.recorder = Recorder(channels=2)
         self.recording = False
+        self.dictionary = enchant.Dict("en_US")
 
     def updateGameState(self, gs):
         self.gameState = gs
@@ -77,7 +79,44 @@ class utils():
             for y in range(0,numTones):
                 scoreList.append([tones["document_tone"]["tone_categories"][x]["tones"][y]["tone_name"],tones["document_tone"]["tone_categories"][x]["tones"][y]['score']])
         return scoreList
-
+        
+    def spellcheck(self, text):
+        word_array = []
+        word = ""
+        first_char = 0
+        is_spelled_right = True
+        
+        for char in range(0,len(text)):
+            #print str(text[char])
+            if ((text[char] != " ") and (char != len(text) - 1)):
+                char+=1
+                #print "not a space"
+            else: 
+                if char == (len(text) - 1):
+                    last_char = char + 1
+                else:
+                    last_char = char
+                    
+                for y in range(first_char, last_char):
+                    word += text[y]
+                    #print word
+                word_array.append(word)
+                #print "called append"
+                word = ""
+                char += 1
+                first_char = char
+        print str(word_array)        
+        for word in word_array:
+            is_spelled_right = self.dictionary.check(word);
+            #print word + " word "
+            #print str(word_array) + " array "
+            print word + " :is spelled right?: " + str(is_spelled_right)
+            if not is_spelled_right:
+                return False;
+        
+        return True
+    
+    
     #Takes some text destined for rr, gets the first result with rr_query_
     #first_result and then uses text to speech to write a wav file with the
     #response text
@@ -102,6 +141,19 @@ class utils():
         except:
             pass
         return answer
+            
+    def WatsonVoice(self, text):
+        try:
+            with open(join(dirname(__file__), 'output.wav'), 'wb') as audio_file:
+                output = self.text_to_speech.synthesize(text, accept='audio/wav', voice="en-GB_KateVoice")
+                audio_file.write(output)
+
+        #Ignore audio problems if they exist instead of
+        #interrupting the user
+        except:
+            pass
+
+        self.play_wav("output.wav")    
 
     def hostageTakerVoice(self, text):
         try:
