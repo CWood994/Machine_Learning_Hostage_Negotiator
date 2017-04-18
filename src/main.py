@@ -223,18 +223,16 @@ class GameScreen(Screen):
 
     def hostage_taker_query(self, text):
         is_spelled_correctly = self.utils.spellcheck(text)
-        
         if self.spellchecked == True:
             is_spelled_correctly = True
-            self.spellchecked = False
         print "was the text spelled right?: " + str(is_spelled_correctly)
         if not is_spelled_correctly:
             self.ids['mainImage'].source = "watson_avatar.jpg" #why no work?
             self.ids['scrollid'].children[0].text = "Watson: Check your response there, you wouldn't want to sound dumb speaking to the hostage taker would you?"
             self.utils.WatsonVoice("Check your response there, you wouldn't want to sound dumb speaking to the hostage taker would you?")
-            self.ids['textInput'].text = text
             self.ids['textInput'].background_color = 1, 0, 0, 1
-            self.spellcheck = True
+            self.ids['textInput'].text = text
+            self.spellchecked = True
         else:
             NLC_class = self.utils.nlc_classify_top_result(text)
             tones = self.utils.analyze_tone(text)
@@ -243,8 +241,18 @@ class GameScreen(Screen):
             response = self.game_state.move_state(NLC_class, text)
             self.utils.hostageTakerVoice(response)
             self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
-            self.ids['textInput'].text = ""
-            self.ids['textInput'].background_color = 1, 1, 1, 1
+            
+            if self.spellchecked == True:
+                self.spellchecked = False
+                self.ids['textInput'].background_color = 1, 1, 1, 1
+                self.ids['textInput'].text = ""
+
+            
+        if self.spellchecked == True:
+            is_spelled_correctly = True
+            seld.ids['textInput'].text = ""
+            seld.ids['textInput'].background_color = 1, 1, 1, 1
+            
         self.updateUI()
 
     def rr_process(self, text):
