@@ -260,17 +260,17 @@ class GameScreen(Screen):
         print self.ids['mainImage']
         print self.ids['mainImage'].source
         #self.ids['mainImage'].source = "watson_avatar.jpg"
-        is_spelled_correctly = self.utils.spellcheck(text)
-        print "was the text spelled right?: " + str(is_spelled_correctly)
-        if not is_spelled_correctly:
-            self.ids['scrollid'].children[0].text = "Watson: I don't quite follow you, could you repeat your question clearly?"
-            self.utils.WatsonVoice("I don't quite follow you, could you repeat your question clearly?")
-        else:
-            answer = self.utils.rr_process(text)
-            #print newText in the Gui
-            self.ids['scrollid'].children[0].text = "Watson: " + answer
-            #play the audio if it exists
-            self.utils.play_wav('output.wav')
+        #is_spelled_correctly = self.utils.spellcheck(text)
+        #print "was the text spelled right?: " + str(is_spelled_correctly)
+        #if not is_spelled_correctly:
+            #self.ids['scrollid'].children[0].text = "Watson: I don't quite follow you, could you repeat your question clearly?"
+            #self.utils.WatsonVoice("I don't quite follow you, could you repeat your question clearly?")
+        #else:
+        answer = self.utils.rr_process(text)
+        #print newText in the Gui
+        self.ids['scrollid'].children[0].text = "Watson: " + answer
+        #play the audio if it exists
+        self.utils.play_wav('output.wav')
         self.updateUI()
 
     def updateUI(self):
