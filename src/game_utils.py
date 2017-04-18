@@ -212,18 +212,22 @@ class utils():
             response = "I'm sorry, they don't teach that at the academy"
         return response
 
+    #Called when the mic button is pressed
     def call_speech_to_text(self, mainSelf):
-        if not self.recording:
-            self.recording = True
-            self.record_audio()
-            result = ""
-            with open('input_audio.wav') as audio_file:
-                result = self.speech_to_text.recognize(audio_file, content_type='audio/wav',timestamps=True,word_confidence=True)
-            result = result['results'][0]['alternatives'][0]['transcript']
-        else:
-            self.recording = False
-            result = "0"
+        #Block the button and change the picture
+        mainSelf.block_stt_button(True)
+        mainSelf.recording_picture(True)
+        self.recording = True
+        self.record_audio()
+        result = ""
+        #Change the button picture back
+        mainSelf.recording_picture(False)
+        with open('input_audio.wav') as audio_file:
+            result = self.speech_to_text.recognize(audio_file, content_type='audio/wav',timestamps=True,word_confidence=True)
+        result = result['results'][0]['alternatives'][0]['transcript']
         mainSelf.updateSTT(result)
+        #Allow the button to be clicked
+        mainSelf.block_stt_button(False)
 
     def record_audio(self):
         with self.recorder.open('input_audio.wav', 'wb') as recFile:

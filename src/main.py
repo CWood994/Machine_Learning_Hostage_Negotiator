@@ -279,8 +279,20 @@ class GameScreen(Screen):
             self.ids["textInput"].text = text
         else:
             self.ids["textInput"].text += " "+text
+
+    def stt_processing(self, value):
+        self.ids["micpictureConnorHotdog"].disabled = value
         self.ids["micpictureConnorHotdog"].source = "mic.png"
 
+    def recording_picture(self, value):
+        if value:
+            self.ids["micpictureConnorHotdog"].source = "mic2.png"
+        else:
+            self.ids["micpictureConnorHotdog"].source = "mic.png"
+
+
+    def block_stt_button(self, value):
+        self.ids["micpictureConnorHotdog"].disabled = value
 
     def sendInSwat(self):
         if self.NOSWAT ==False:
