@@ -211,6 +211,7 @@ class GameScreen(Screen):
         self.NOSWAT = False
         global swat 
         swat = False
+        self.spellchecked = False
 
     def changeGame(self, nlc, response):
         self.ids['scrollidLeft'].children[0].text = "Hostage Taker: "
@@ -222,11 +223,18 @@ class GameScreen(Screen):
 
     def hostage_taker_query(self, text):
         is_spelled_correctly = self.utils.spellcheck(text)
+        
+        if self.spellchecked == True:
+            is_spelled_correctly = True
+            self.spellchecked = False
         print "was the text spelled right?: " + str(is_spelled_correctly)
         if not is_spelled_correctly:
             self.ids['mainImage'].source = "watson_avatar.jpg" #why no work?
             self.ids['scrollid'].children[0].text = "Watson: Check your response there, you wouldn't want to sound dumb speaking to the hostage taker would you?"
             self.utils.WatsonVoice("Check your response there, you wouldn't want to sound dumb speaking to the hostage taker would you?")
+            self.ids['textInput'].text = text
+            self.ids['textInput'].background_color = 1, 0, 0, 1
+            self.spellcheck = True
         else:
             NLC_class = self.utils.nlc_classify_top_result(text)
             tones = self.utils.analyze_tone(text)
@@ -235,6 +243,8 @@ class GameScreen(Screen):
             response = self.game_state.move_state(NLC_class, text)
             self.utils.hostageTakerVoice(response)
             self.ids['scrollidLeft'].children[0].text = "Hostage Taker: " + response
+            self.ids['textInput'].text = ""
+            self.ids['textInput'].background_color = 1, 1, 1, 1
         self.updateUI()
 
     def rr_process(self, text):
@@ -324,6 +334,7 @@ class GameScreen(Screen):
     #Read in the user input and feed to R&R if Watson
     #is mentioned, otherwise feed to the NLC
     def user_input(self, text):
+        self.ids['textInput'].background_color = 1, 1, 1, 1
         if self.game_state.isTerminal == False:
             #text = text.lower()
             if self.utils.isWatsonQuery(text):
