@@ -242,7 +242,7 @@ class GameScreen(Screen):
         print self.ids['mainImage']
         print self.ids['mainImage'].source
         #self.ids['mainImage'].source = "watson_avatar.jpg"
-        is_spelled_correctly = self.utils.spellcheck(text[6:])
+        is_spelled_correctly = self.utils.spellcheck(text)
         print "was the text spelled right?: " + str(is_spelled_correctly)
         if not is_spelled_correctly:
             self.ids['scrollid'].children[0].text = "Watson: I don't quite follow you, could you repeat your question clearly?"
@@ -313,12 +313,11 @@ class GameScreen(Screen):
     #is mentioned, otherwise feed to the NLC
     def user_input(self, text):
         if self.game_state.isTerminal == False:
-            text = text.lower()
+            #text = text.lower()
             if self.utils.isWatsonQuery(text):
                 self.ids['mainImage'].source = "watson_avatar.jpg"
                 clean = self.utils.cleanse_rr_string(text)
                 thread.start_new_thread(self.rr_process, (clean,))
-                #self.rr_process(self.utils.cleanse_rr_string(text))
             else:
                 self.ids['mainImage'].source = "hostage_1.jpg"
                 thread.start_new_thread( self.hostage_taker_query, (text,))

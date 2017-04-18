@@ -81,35 +81,24 @@ class utils():
         return scoreList
         
     def spellcheck(self, text):
-        word_array = []
-        word = ""
-        first_char = 0
-        is_spelled_right = True
-        
-        for char in range(0,len(text)):
-            #print str(text[char])
-            if ((text[char] != " ") and (char != len(text) - 1)):
-                char+=1
-                #print "not a space"
-            else: 
-                if char == (len(text) - 1):
-                    last_char = char + 1
-                else:
-                    last_char = char
-                    
-                for y in range(first_char, last_char):
-                    word += text[y]
-                    #print word
-                word_array.append(word)
-                #print "called append"
-                word = ""
-                char += 1
-                first_char = char
+        print text
+        word_array = text.split()
         print str(word_array)        
-        for word in word_array:
+
+        for index,word in enumerate(word_array):
+            #Handle punctuation which returns false
+            #for spellchecking
+            if not word[0].isalpha():
+                word = word[1:]
+            if not word[-1].isalpha():
+                word = word[:-1]
+
+            #FIXME Catches names, but will also catch beginning of new
+            #sentences
+            if index>0 and word[0].isupper():
+                continue
+
             is_spelled_right = self.dictionary.check(word);
-            #print word + " word "
-            #print str(word_array) + " array "
             print word + " :is spelled right?: " + str(is_spelled_right)
             if not is_spelled_right:
                 return False;
