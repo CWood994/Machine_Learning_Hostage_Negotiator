@@ -90,7 +90,7 @@ class utils():
             #for spellchecking
             if not word[0].isalpha():
                 word = word[1:]
-            if not word[-1].isalpha():
+            if len(word)>1 and not word[-1].isalpha():
                 word = word[:-1]
 
             #FIXME Catches names, but will also catch beginning of new
