@@ -180,7 +180,7 @@ Builder.load_string("""
 			padding: 10, 10
 			text_size: root.width, None
 			size: self.texture_size
-			text: "Welcome to group 65b's hostage tranining simulator. Here are the basics you need to know in order to play the game."
+			text: "Welcome to group 65b's hostage negotiator training simulator. Here are the basics you need to know in order to play the game."
 		Label:
 			halign: 'left'
 			padding: 10, 10
@@ -250,8 +250,8 @@ class GameScreen(Screen):
             
         if self.spellchecked == True:
             is_spelled_correctly = True
-            seld.ids['textInput'].text = ""
-            seld.ids['textInput'].background_color = 1, 1, 1, 1
+            self.ids['textInput'].text = ""
+            self.ids['textInput'].background_color = 1, 1, 1, 1
             
         self.updateUI()
 
