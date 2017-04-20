@@ -250,8 +250,8 @@ class GameScreen(Screen):
             
         if self.spellchecked == True:
             is_spelled_correctly = True
-            self.ids['textInput'].text = ""
-            self.ids['textInput'].background_color = 1, 1, 1, 1
+            #self.ids['textInput'].text = ""
+            #self.ids['textInput'].background_color = 1, 1, 1, 1
             
         self.updateUI()
 
