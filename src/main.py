@@ -126,7 +126,7 @@ Builder.load_string("""
             allow_stretch: True
             anim_delay: 0.1
         Button:
-            text: 'Start Game'
+            text: 'Start Simulator'
             on_press: root.startGame()
         BoxLayout:
 			orientation: 'horizontal'
